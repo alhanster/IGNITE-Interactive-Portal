@@ -1,11 +1,10 @@
 # IGNITE Interactive Portal
 
-### 📖 Technical report **https://github.com/alhanster/immune-target-atlas-technical-report**
-
-A static web portal for browsing machine-learned drug-target candidates for immune
-disease. It ranks 19,502 genes by a PU-learning model score and provides a per-gene
-detail page for each: regulator-burden signal, functional-genomics similarity to
-FDA-drugged targets, polarization score, and external validation links.
+IGNITE (Immune Genomics and fuNctional Integration for Target Enrichment) is a static
+web portal for browsing machine-learned drug-target candidates for immune disease. It
+ranks 19,502 genes by a PU-learning model score and provides a per-gene detail page for
+each: regulator-burden signal, functional-genomics similarity to approved targets,
+polarization score, and external validation links.
 
 Dark, monospace-data interface. No build step, no dependencies, no framework
 install — plain files served over HTTP.
