@@ -10,7 +10,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="./target-data.js"></script>
 <script src="./cfg-data.js"></script>
 <script src="./polarization-data.js"></script>
@@ -21,30 +21,95 @@
   ::-webkit-scrollbar-thumb{background:rgba(128,128,128,.35);border-radius:6px;}
   ::-webkit-scrollbar-track{background:transparent;}
   a{color:inherit;}
-  @media (max-width: 760px){
+  :root{
+    --atlas-bg:#0A0A0B;
+    --atlas-surface:rgba(255,255,255,0.022);
+    --atlas-ink:#ECEDEF;
+    --atlas-sub:#91959C;
+    --atlas-faint:#7C8087;
+    --atlas-line:rgba(255,255,255,0.10);
+    --atlas-line-2:rgba(255,255,255,0.055);
+    --atlas-accent:#5EC962;
+    --atlas-accent-2:#D7D9DD;
+    --atlas-head:rgba(10,10,11,0.82);
+    --atlas-head-bg:rgba(255,255,255,0.018);
+    --atlas-hover:rgba(255,255,255,0.05);
+    --atlas-chip:rgba(94,201,98,0.10);
+    --atlas-chip-ink:#8FDA92;
+    --atlas-track:rgba(255,255,255,0.07);
+    --atlas-blur:saturate(140%) blur(14px);
+    --atlas-radius:0px;
+    --atlas-mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --atlas-ui:"Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --atlas-leg-neg:#5B8FD6;
+    --atlas-leg-pos:#E3B23C;
+  }
+  body{background:var(--atlas-bg);}
+  table,input,button,th,td{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+  input,button,a,tr[style]{transition:background-color 170ms ease-out,border-color 170ms ease-out,color 170ms ease-out,opacity 170ms ease-out;}
+  .ita-table tbody td{ transition:box-shadow 170ms ease-out; }
+  *:focus{outline:none;}
+  *:focus-visible{outline:1px solid #5EC962;outline-offset:-1px;}
+  input::placeholder{color:var(--atlas-sub);}
+  ::selection{background:rgba(94,201,98,.28);}
+  .ita-suggest-row:hover{ background:rgba(255,255,255,0.075); }
+  th[title]{cursor:pointer;}
+  .ita-table thead th[title]{ text-decoration:underline dotted; text-decoration-color:rgba(255,255,255,.28); text-underline-offset:5px; }
+  .ita-table th:nth-child(1), .ita-table td:nth-child(1){ position:sticky; left:0; background:var(--atlas-bg); z-index:3; }
+  .ita-table th:nth-child(2), .ita-table td:nth-child(2){ position:sticky; left:52px; background:var(--atlas-bg); border-right:1px solid var(--atlas-line); z-index:3; }
+  .ita-table thead th:nth-child(1), .ita-table thead th:nth-child(2){ z-index:6 !important; }
+  .ita-table thead th:nth-child(1), .ita-table thead th:nth-child(2){ z-index:6 !important; }
+  /* Row hover: an inset overlay rather than a background swap, so the lift
+     composites over the heat cells' inline fills and the frozen columns'
+     opaque fill alike — one uniform edge-to-edge rail. */
+  .ita-table tbody tr:hover > td{ box-shadow:inset 0 0 0 9999px rgba(255,255,255,0.075); }
+  @media (prefers-reduced-motion: reduce){
+    *{transition-duration:0ms !important;animation-duration:0ms !important;}
+  }
+  /* Phone rules are gated on touch capability and short-landscape as well as width,
+     so rotation (844x390 / 800x360) keeps 16px inputs, 44px targets, frozen
+     columns, the edge fade and the safe-area padding. */
+  @media (max-width: 760px),
+         (hover: none) and (pointer: coarse) and (max-width: 1180px),
+         (max-height: 520px) and (orientation: landscape){
     .ita-dgrid{ grid-template-columns:1fr !important; }
-    .ita-dinner{ padding:16px !important; }
-    .ita-topbar{ padding:16px 16px !important; }
-    .ita-controls{ padding:12px 16px !important; }
-    .ita-footer{ padding:14px 16px !important; }
-    .ita-dtop{ padding:12px 16px !important; }
+    .ita-dinner{ padding:16px !important; padding-left:max(16px, env(safe-area-inset-left)) !important; padding-right:max(16px, env(safe-area-inset-right)) !important; padding-bottom:max(24px, env(safe-area-inset-bottom)) !important; }
+    .ita-topbar{ padding:14px 16px !important; padding-top:max(14px, env(safe-area-inset-top)) !important; padding-left:max(16px, env(safe-area-inset-left)) !important; padding-right:max(16px, env(safe-area-inset-right)) !important; }
+    .ita-controls{ padding:10px 16px !important; padding-left:max(16px, env(safe-area-inset-left)) !important; padding-right:max(16px, env(safe-area-inset-right)) !important; }
+    .ita-footer{ padding:14px 16px !important; padding-bottom:max(14px, env(safe-area-inset-bottom)) !important; }
+    .ita-pager{ padding-bottom:max(14px, env(safe-area-inset-bottom)) !important; }
+    .ita-dtop{ padding:10px 16px !important; padding-top:max(10px, env(safe-area-inset-top)) !important; }
     .ita-dgene{ font-size:26px !important; }
     .ita-dheadright{ min-width:0 !important; width:100% !important; }
+
     .ita-search{ width:100% !important; max-width:none !important; }
     .ita-brand{ flex-wrap:wrap !important; align-items:center !important; gap:12px !important; width:100%; }
-    .ita-report{ flex-basis:100% !important; margin-top:2px !important; text-align:center; }
+    .ita-report{ flex-basis:100% !important; margin-top:2px !important; min-height:44px; display:inline-flex !important; align-items:center; justify-content:center; }
     .ita-topright{ width:100% !important; }
     .ita-brandtext{ display:contents !important; }
-    .ita-brand{ align-items:center !important; }
-    .ita-title{ flex:1 1 auto !important; min-width:0 !important; font-size:clamp(19px, 6.4vw, 28px) !important; line-height:1.1 !important; }
-    .ita-subtitle{ flex-basis:100% !important; }
-    .ita-logo{ width:44px !important; height:44px !important; }
-    .ita-subtitle{ font-size:clamp(9px, 3.15vw, 14px) !important; letter-spacing:-.2px !important; margin-top:6px !important; white-space:nowrap !important; }
-    .ita-search input{ font-size:16px !important; padding:14px 16px 14px 40px !important; }
+    .ita-title{ flex:1 1 auto !important; min-width:0 !important; font-size:clamp(18px, 5.4vw, 24px) !important; line-height:1.1 !important; }
+    .ita-logo{ width:38px !important; height:38px !important; }
+    .ita-subtitle{ flex-basis:100% !important; font-size:clamp(9px, 3.1vw, 13px) !important; letter-spacing:-.2px !important; margin-top:4px !important; white-space:nowrap !important; }
+    .ita-search input{ font-size:16px !important; padding:13px 16px 13px 40px !important; background:rgba(255,255,255,.045) !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
     .ita-search .ita-search-icon{ font-size:18px !important; }
-    .ita-filter{ width:100% !important; }
-    .ita-controls-right{ width:100%; }
-    .ita-legend{ display:none !important; }
+    .ita-filter{ width:100% !important; font-size:16px !important; padding:12px !important; }
+    .ita-controls-right{ width:100%; gap:10px !important; }
+
+    .ita-legend{ display:flex !important; width:100%; flex-wrap:wrap; gap:6px !important; }
+    .ita-legend > span:first-child{ font-size:9.5px !important; letter-spacing:.4px !important; white-space:normal !important; }
+
+    .ita-tablescroll{ -webkit-overflow-scrolling:touch;
+      -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent);
+      mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent); }
+    .ita-table thead th{ height:44px !important; background:var(--atlas-bg) !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
+    .ita-table tbody td{ height:42px !important; font-size:12px !important; }
+    .ita-table th:nth-child(1), .ita-table td:nth-child(1){ position:sticky; left:0; width:38px !important; min-width:38px; padding:0 4px !important; background:var(--atlas-bg); z-index:3; }
+    .ita-table th:nth-child(2), .ita-table td:nth-child(2){ position:sticky; left:38px; background:var(--atlas-bg); border-right:1px solid var(--atlas-line); z-index:3; }
+    .ita-table thead th:nth-child(1), .ita-table thead th:nth-child(2){ z-index:6 !important; }
+  }
+  @media (max-width: 480px),
+         (max-height: 430px) and (orientation: landscape){
+    :root{ --atlas-sub:#A3A7AE; --atlas-faint:#8D9198; --atlas-line:rgba(255,255,255,0.14); }
   }
 </style>
 </helmet>
@@ -60,7 +125,7 @@
           <div class="ita-title" style="{{ st.title }}">Immune Target Atlas</div>
           <div class="ita-subtitle" style="{{ st.subtitle }}">Machine-learned drug-target candidates for immune disease</div>
         </div>
-        <a class="ita-report" style="{{ st.reportBtn }}" style-hover="{{ st.reportBtnHover }}" href="{{ reportHref }}" target="_blank" rel="noopener">Read technical report ↗</a>
+        <a class="ita-report" style="{{ st.reportBtn }}" style-hover="background:rgba(255,255,255,0.075);border-color:#5EC962" href="{{ reportHref }}" target="_blank" rel="noopener">Read technical report ↗</a>
       </div>
       <div class="ita-topright" style="{{ st.topRight }}">
         <div class="ita-search" style="{{ st.searchWrap }}">
@@ -69,7 +134,7 @@
           <sc-if value="{{ showSuggest }}" hint-placeholder-val="{{ false }}">
             <div style="{{ st.suggestBox }}">
               <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="0">
-                <div style="{{ s.rowStyle }}" style-hover="{{ st.suggestHover }}" onMouseDown="{{ s.open }}">
+                <div class="ita-suggest-row" style="{{ s.rowStyle }}" onMouseDown="{{ s.open }}">
                   <span style="{{ s.geneStyle }}">{{ s.gene }}</span>
                   <sc-if value="{{ s.ieiBadge }}" hint-placeholder-val="{{ false }}"><span style="{{ st.ieiMini }}">IEI</span></sc-if>
                   <span style="{{ st.suggestPu }}">{{ s.puText }}</span>
@@ -94,10 +159,12 @@
       </div>
       <div class="ita-controls-right" style="{{ st.controlsRight }}">
         <div class="ita-legend" style="{{ st.legend }}">
-          <span style="{{ st.legLabel }}">Regulator-burden signal (signed −log₁₀P, per activation state)</span>
-          <span style="{{ st.legNeg }}">−</span>
-          <span style="{{ st.legBar }}"></span>
-          <span style="{{ st.legPos }}">+</span>
+          <span style="{{ st.legLabel }}">Regulator burden — filled pip = significant in that state (rest · 8 h · 48 h)</span>
+          <span style="{{ st.legPipOn }}"></span>
+          <span style="{{ st.legPipOff }}"></span>
+          <span style="{{ st.legDivider }}"></span>
+          <span style="{{ st.legSwatch }}"></span>
+          <span style="{{ st.legNote }}">Accent = top/bottom quartile by rank percentile (LOEUF &lt;P25 · Mis. Z &gt;P75 · GWAS &gt;P75)</span>
         </div>
         <div style="{{ st.filterWrap }}">
           <input class="ita-filter" style="{{ st.filterInput }}" value="{{ filter }}" onInput="{{ onFilter }}" placeholder="Filter table by gene" spellcheck="false" />
@@ -106,25 +173,24 @@
       </div>
     </div>
 
-    <div style="{{ st.tableScroll }}">
-      <table style="{{ st.table }}">
+    <div class="ita-tablescroll" style="{{ st.tableScroll }}" tabindex="0">
+      <table class="ita-table" style="{{ st.table }}">
         <thead>
           <tr>
             <th style="{{ st.thRank }}" onClick="{{ H.rank }}" title="Model rank">#<span style="{{ st.arrow }}">{{ arrows.rank }}</span></th>
             <th style="{{ st.thGene }}" onClick="{{ H.gene }}" title="Gene symbol">Gene<span style="{{ st.arrow }}">{{ arrows.gene }}</span></th>
             <th style="{{ st.thPu }}" onClick="{{ H.pu }}" title="PU-learning model score (0–1, higher = more likely a target)">PU score<span style="{{ st.arrow }}">{{ arrows.pu }}</span></th>
             <th style="{{ st.thC }}" onClick="{{ H.iei }}" title="Known inborn error of immunity gene">IEI<span style="{{ st.arrow }}">{{ arrows.iei }}</span></th>
-            <th style="{{ st.thR }}" onClick="{{ H.loeuf }}" title="LOEUF — loss-of-function observed/expected upper CI (lower = more constrained)">LOEUF<span style="{{ st.arrow }}">{{ arrows.loeuf }}</span></th>
-            <th style="{{ st.thR }}" onClick="{{ H.misz }}" title="Missense constraint Z-score">Mis. Z<span style="{{ st.arrow }}">{{ arrows.misz }}</span></th>
-            <th style="{{ st.thR }}" onClick="{{ H.gwas }}" title="GWAS colocalization score">GWAS<span style="{{ st.arrow }}">{{ arrows.gwas }}</span></th>
-            <th style="{{ st.thC }}" onClick="{{ H.rest }}" title="eQTL signed log10P — resting T cells">Rest<span style="{{ st.arrow }}">{{ arrows.rest }}</span></th>
-            <th style="{{ st.thC }}" onClick="{{ H.s8 }}" title="eQTL signed log10P — stimulated 8 hr">Stim 8h<span style="{{ st.arrow }}">{{ arrows.s8 }}</span></th>
-            <th style="{{ st.thC }}" onClick="{{ H.s48 }}" title="eQTL signed log10P — stimulated 48 hr">Stim 48h<span style="{{ st.arrow }}">{{ arrows.s48 }}</span></th>
+            <th style="{{ st.thC }}" onClick="{{ H.status }}" title="Clinical development status of the gene as a drug target">Status<span style="{{ st.arrow }}">{{ arrows.status }}</span></th>
+            <th style="{{ st.thR }}" onClick="{{ H.loeuf }}" title="LOEUF — loss-of-function observed/expected upper CI (lower = more constrained). Accent highlight = bottom quartile (rank percentile <0.25) across scored genes, not an absolute cutoff.">LOEUF<span style="{{ st.arrow }}">{{ arrows.loeuf }}</span></th>
+            <th style="{{ st.thR }}" onClick="{{ H.misz }}" title="Missense constraint Z-score. Accent highlight = top quartile (rank percentile >0.75) across scored genes, not an absolute cutoff.">Mis. Z<span style="{{ st.arrow }}">{{ arrows.misz }}</span></th>
+            <th style="{{ st.thR }}" onClick="{{ H.gwas }}" title="GWAS colocalization score. Accent highlight = top quartile (rank percentile >0.75) across scored genes, not an absolute cutoff.">GWAS<span style="{{ st.arrow }}">{{ arrows.gwas }}</span></th>
+            <th style="{{ st.thC }}" onClick="{{ H.reg }}" title="Regulator-burden significance by activation state (rest · stim 8 hr · stim 48 hr). Filled pip = significant. Sorted by the number of significant states.">Reg-burden<span style="{{ st.arrow }}">{{ arrows.reg }}</span></th>
           </tr>
         </thead>
         <tbody>
           <sc-for list="{{ rows }}" as="r" hint-placeholder-count="15">
-            <tr style="{{ r.rowStyle }}" style-hover="{{ st.rowHover }}" onClick="{{ r.open }}">
+            <tr style="{{ r.rowStyle }}" onClick="{{ r.open }}">
               <td style="{{ r.rankCell }}">{{ r.rank }}</td>
               <td style="{{ r.geneCell }}">{{ r.gene }}</td>
               <td style="{{ st.puCell }}">
@@ -134,12 +200,16 @@
                 </div>
               </td>
               <td style="{{ st.ieiCell }}"><sc-if value="{{ r.ieiBadge }}" hint-placeholder-val="{{ false }}"><span style="{{ st.ieiBadge }}">IEI</span></sc-if></td>
+              <td style="{{ st.ieiCell }}"><sc-if value="{{ r.hasStatus }}" hint-placeholder-val="{{ false }}"><span style="{{ r.statusStyle }}">{{ r.statusText }}</span></sc-if></td>
               <td style="{{ r.loeufCell }}">{{ r.loeufText }}</td>
               <td style="{{ r.miszCell }}">{{ r.miszText }}</td>
               <td style="{{ r.gwasCell }}">{{ r.gwasText }}</td>
-              <td style="{{ r.restCell }}">{{ r.restText }}</td>
-              <td style="{{ r.s8Cell }}">{{ r.s8Text }}</td>
-              <td style="{{ r.s48Cell }}">{{ r.s48Text }}</td>
+              <td style="{{ st.regCell }}">
+                <sc-if value="{{ r.hasReg }}" hint-placeholder-val="{{ true }}">
+                  <span style="{{ st.pipRow }}"><span style="{{ r.pipRest }}"></span><span style="{{ r.pip8 }}"></span><span style="{{ r.pip48 }}"></span></span>
+                </sc-if>
+                <sc-if value="{{ r.noReg }}" hint-placeholder-val="{{ false }}"><span style="{{ st.regNone }}">—</span></sc-if>
+              </td>
             </tr>
           </sc-for>
         </tbody>
@@ -150,7 +220,7 @@
     </div>
 
     <sc-if value="{{ showPager }}" hint-placeholder-val="{{ false }}">
-      <div style="{{ st.pager }}">
+      <div class="ita-pager" style="{{ st.pager }}">
         <button style="{{ st.pagerBtn }}" onClick="{{ prevPage }}">‹ Prev</button>
         <span style="{{ st.pagerLabel }}">{{ pagerLabel }}</span>
         <button style="{{ st.pagerBtn }}" onClick="{{ nextPage }}">Next ›</button>
@@ -181,6 +251,7 @@
             <div style="{{ st.dGeneRow }}">
               <span class="ita-dgene" style="{{ st.dGene }}">{{ detail.gene }}</span>
               <sc-if value="{{ detail.ieiBadge }}" hint-placeholder-val="{{ false }}"><span style="{{ st.dIeiBadge }}">Known IEI gene</span></sc-if>
+              <sc-if value="{{ detail.statusBadge }}" hint-placeholder-val="{{ false }}"><span style="{{ st.dStatusBadge }}">{{ detail.statusText }}</span></sc-if>
             </div>
             <div style="{{ st.dRank }}">{{ detail.rankText }}</div>
           </div>
@@ -209,27 +280,30 @@
 
           <div style="{{ st.dCard }}">
             <div style="{{ st.dCardTitle }}">T-cell regulator-burden signal</div>
-            <div style="{{ st.dCardSub }}">Signed −log₁₀P of regulator-burden association across activation states</div>
-            <table style="{{ st.eqTable }}">
-              <thead>
-                <tr>
-                  <th style="{{ st.eqThL }}">State</th>
-                  <th style="{{ st.eqTh }}">β</th>
-                  <th style="{{ st.eqTh }}">SE</th>
-                  <th style="{{ st.eqTh }}">signed log₁₀P</th>
-                </tr>
-              </thead>
-              <tbody>
-                <sc-for list="{{ detail.eqRows }}" as="e" hint-placeholder-count="3">
+            <div style="{{ st.dCardSub }}">Whether this gene carries a significant regulator burden in each activation state</div>
+            <sc-if value="{{ detail.reg.has }}" hint-placeholder-val="{{ true }}">
+              <div style="{{ st.regResidRow }}">
+                <span style="{{ st.cfgLabel }}">Expected regulators (residual)</span>
+                <span style="{{ st.cfgVal }}">{{ detail.reg.residText }}</span>
+              </div>
+              <table style="{{ st.eqTable }}">
+                <thead>
                   <tr>
-                    <td style="{{ st.eqTdL }}">{{ e.state }}</td>
-                    <td style="{{ st.eqTd }}">{{ e.beta }}</td>
-                    <td style="{{ st.eqTd }}">{{ e.se }}</td>
-                    <td style="{{ e.logStyle }}">{{ e.logText }}</td>
+                    <th style="{{ st.eqThL }}">State</th>
+                    <th style="{{ st.eqTh }}">Regulator burden</th>
                   </tr>
-                </sc-for>
+                </thead>
+                <tbody>
+                  <sc-for list="{{ detail.reg.rows }}" as="e" hint-placeholder-count="3">
+                    <tr>
+                      <td style="{{ st.eqTdL }}">{{ e.state }}</td>
+                      <td style="{{ e.sigStyle }}">{{ e.sigText }}</td>
+                    </tr>
+                  </sc-for>
               </tbody>
             </table>
+            </sc-if>
+            <sc-if value="{{ detail.reg.noteText }}" hint-placeholder-val="{{ false }}"><div style="{{ st.cfgNote }}">{{ detail.reg.noteText }}</div></sc-if>
           </div>
 
         </div>
@@ -249,6 +323,25 @@
         <div style="{{ st.dCard }}">
           <div style="{{ st.dCardTitle }}">Functional-genomics signature similarity to FDA-drugged targets</div>
           <div style="{{ st.dCardSub }}">kNN target-similarity evidence and nearest FDA-drugged target, by T-cell activation state</div>
+
+          <div style="{{ st.cfgBlock }}">
+            <div style="{{ st.cfgHead }}">{{ detail.cfgRest.label }}</div>
+            <sc-if value="{{ detail.cfgRest.has }}" hint-placeholder-val="{{ true }}">
+              <sc-for list="{{ detail.cfgRest.fields }}" as="f" hint-placeholder-count="4">
+                <div style="{{ f.rowStyle }}">
+                  <span style="{{ st.cfgLabel }}">{{ f.label }}</span>
+                  <span style="{{ st.cfgVal }}">{{ f.value }}</span>
+                </div>
+              </sc-for>
+              <sc-if value="{{ detail.cfgRest.hasDrugs }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ st.cfgDrugLabel }}">FDA drugs targeting nearest gene</div>
+                <div style="{{ st.cfgDrugRow }}">
+                  <sc-for list="{{ detail.cfgRest.drugs }}" as="dg" hint-placeholder-count="0"><span style="{{ dg.style }}">{{ dg.name }}</span></sc-for>
+                </div>
+              </sc-if>
+            </sc-if>
+            <sc-if value="{{ detail.cfgRest.noteText }}" hint-placeholder-val="{{ false }}"><div style="{{ st.cfgNote }}">{{ detail.cfgRest.noteText }}</div></sc-if>
+          </div>
 
           <div style="{{ st.cfgBlock }}">
             <div style="{{ st.cfgHead }}">{{ detail.cfg8.label }}</div>
@@ -307,11 +400,51 @@
         </div>
 
         <div style="{{ st.dCard }}">
+          <div style="{{ st.dCardTitle }}">Subset polarization</div>
+          <div style="{{ st.dCardSub }}">Effect on each T-helper subset signature, as a z-score</div>
+          <sc-if value="{{ detail.th.has }}" hint-placeholder-val="{{ true }}">
+            <sc-for list="{{ detail.th.fields }}" as="f" hint-placeholder-count="4">
+              <div style="{{ f.rowStyle }}">
+                <span style="{{ st.cfgLabel }}">{{ f.label }}</span>
+                <span style="{{ st.cfgVal }}">{{ f.value }}</span>
+              </div>
+            </sc-for>
+          </sc-if>
+          <sc-if value="{{ detail.th.noteText }}" hint-placeholder-val="{{ false }}"><div style="{{ st.cfgNote }}">{{ detail.th.noteText }}</div></sc-if>
+        </div>
+
+        <div style="{{ st.dCard }}">
+          <div style="{{ st.dCardTitle }}">Cytokine regulation</div>
+          <div style="{{ st.dCardSub }}">Significantly regulated cytokines and cytokine receptors, by activation state</div>
+          <sc-if value="{{ detail.cyt.has }}" hint-placeholder-val="{{ true }}">
+            <table style="{{ st.eqTable }}">
+              <thead>
+                <tr>
+                  <th style="{{ st.eqThL }}">State</th>
+                  <th style="{{ st.eqTh }}">Cytokines</th>
+                  <th style="{{ st.eqTh }}">Receptors</th>
+                </tr>
+              </thead>
+              <tbody>
+                <sc-for list="{{ detail.cyt.rows }}" as="c" hint-placeholder-count="3">
+                  <tr>
+                    <td style="{{ st.eqTdL }}">{{ c.state }}</td>
+                    <td style="{{ st.eqTd }}">{{ c.cyto }}</td>
+                    <td style="{{ st.eqTd }}">{{ c.recep }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </sc-if>
+          <sc-if value="{{ detail.cyt.noteText }}" hint-placeholder-val="{{ false }}"><div style="{{ st.cfgNote }}">{{ detail.cyt.noteText }}</div></sc-if>
+        </div>
+
+        <div style="{{ st.dCard }}">
           <div style="{{ st.dCardTitle }}">External validation</div>
           <div style="{{ st.dCardSub }}">Cross-reference this candidate in public resources</div>
           <div style="{{ st.linkRow }}">
             <sc-for list="{{ detail.links }}" as="l" hint-placeholder-count="6">
-              <a style="{{ st.linkBtn }}" style-hover="{{ st.linkBtnHover }}" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>
+              <a style="{{ st.linkBtn }}" style-hover="background:rgba(255,255,255,0.075);border-color:#5EC962" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a>
             </sc-for>
           </div>
         </div>
@@ -323,9 +456,9 @@
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;clinical&quot;,&quot;terminal&quot;],&quot;default&quot;:&quot;clinical&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;topCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:25,&quot;min&quot;:5,&quot;max&quot;:100,&quot;step&quot;:5,&quot;section&quot;:&quot;Table&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;mobileHeaderLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;text-right&quot;,&quot;text-below&quot;],&quot;default&quot;:&quot;text-right&quot;,&quot;section&quot;:&quot;Mobile&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;logoSize&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:68,&quot;min&quot;:32,&quot;max&quot;:96,&quot;step&quot;:2,&quot;unit&quot;:&quot;px&quot;,&quot;section&quot;:&quot;Mobile&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;reportHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;technical-report.pdf&quot;,&quot;section&quot;:&quot;Header&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;otherHref&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;otherLabel&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;atlas&quot;,&quot;clinical&quot;,&quot;terminal&quot;],&quot;default&quot;:&quot;atlas&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;topCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:25,&quot;min&quot;:5,&quot;max&quot;:100,&quot;step&quot;:5,&quot;section&quot;:&quot;Table&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;mobileHeaderLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;text-right&quot;,&quot;text-below&quot;],&quot;default&quot;:&quot;text-right&quot;,&quot;section&quot;:&quot;Mobile&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;logoSize&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:40,&quot;min&quot;:24,&quot;max&quot;:96,&quot;step&quot;:2,&quot;unit&quot;:&quot;px&quot;,&quot;section&quot;:&quot;Mobile&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;reportHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;technical-report.pdf&quot;,&quot;section&quot;:&quot;Header&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;otherHref&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;otherLabel&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  state = { data:null, query:'', showSuggest:false, focused:false, filter:'', sortKey:'rank', sortDir:'asc', viewAll:false, page:0, selectedGene:null };
+  state = { data:null, query:'', showSuggest:false, focused:false, filter:'', sortKey:'pu', sortDir:'desc', viewAll:false, page:0, selectedGene:null };
 
   componentDidMount(){ this._tries=0; this.tryLoad(); }
   tryLoad(){
@@ -334,7 +467,28 @@ class Component extends DCLogic {
   }
   loadData(){
     const raw = window.__TARGETS__.slice().sort((a,b)=>b.pu_score-a.pu_score);
-    raw.forEach((d,i)=>{ d.modelRank = i+1; });
+    raw.forEach((d,i)=>{
+      d.modelRank = i+1;
+      // Derived once here so the table can sort on them through the ordinary
+      // numeric path: how many activation states show a significant
+      // regulator burden, and clinical status as an ordinal.
+      d._regSig = (d.reg_burden_sig_Rest===null||d.reg_burden_sig_Rest===undefined) ? null
+        : (d.reg_burden_sig_Rest||0)+(d.reg_burden_sig_Stim8hr||0)+(d.reg_burden_sig_Stim48hr||0);
+      d._statusRank = d.drug_status==='approved' ? 2 : d.drug_status==='in trial' ? 1 : 0;
+    });
+    // Quartile cutoffs from rank percentiles over the genes that actually carry
+    // a value, so nulls never shift the distribution.
+    const cut=(key,q)=>{
+      const v=raw.map(d=>d[key]).filter(x=>x!==null&&x!==undefined&&x!==''&&!Number.isNaN(Number(x))).map(Number).sort((a,b)=>a-b);
+      if(!v.length) return null;
+      const i=(v.length-1)*q, lo=Math.floor(i), hi=Math.ceil(i);
+      return lo===hi ? v[lo] : v[lo]+(v[hi]-v[lo])*(i-lo);
+    };
+    this._q = {
+      loeufP25: cut('lof_oe_ci_upper',0.25),
+      miszP75:  cut('mis_z_score',0.75),
+      gwasP75:  cut('gwas_score',0.75)
+    };
     this.setState({ data: raw });
   }
 
@@ -343,17 +497,44 @@ class Component extends DCLogic {
   mix(c1,c2,x){ x=Math.max(0,Math.min(1,x)); return 'rgb('+this.lerp(c1[0],c2[0],x)+','+this.lerp(c1[1],c2[1],x)+','+this.lerp(c1[2],c2[2],x)+')'; }
 
   theme(){
+    const MONO='"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
     if (this.props.theme === 'terminal'){
       return { dark:true, bg:'#0d1112', surface:'#141a1b', panel:'#131a1a', ink:'#e7ece9', sub:'#8a978f', faint:'#5f6b64',
         line:'#26302f', line2:'#1b2322', accent:'#37d39f', accent2:'#5ab4e6', head:'#0f1515', hover:'#18211f',
-        chip:'#16231e', chipInk:'#7fe6bf', mono:'"IBM Plex Mono", ui-monospace, monospace',
-        ui:'"Helvetica Neue", Helvetica, Arial, sans-serif' };
+        chip:'#16231e', chipInk:'#7fe6bf', mono:MONO, ui:'"Helvetica Neue", Helvetica, Arial, sans-serif',
+        rad:'7px', radSm:'4px', headBg:'#141a1b', tableBg:'#141a1b', rowBg:'#141a1b', track:'#1f2b26',
+        blur:'none', shadow:'0 14px 40px rgba(0,0,0,.5)', scale:false,
+        legNegC:'#5ab4e6', legPosC:'#c94a4a',
+        legGrad:'linear-gradient(90deg,rgb(74,132,196),#23291c,rgb(198,88,82))' };
+    }
+    if (this.props.theme === 'atlas'){
+      return { dark:true, atlas:true, bg:'var(--atlas-bg)', surface:'var(--atlas-surface)', panel:'var(--atlas-surface)',
+        ink:'var(--atlas-ink)', sub:'var(--atlas-sub)', faint:'var(--atlas-faint)',
+        line:'var(--atlas-line)', line2:'var(--atlas-line-2)',
+        accent:'var(--atlas-accent)', accent2:'var(--atlas-accent-2)', head:'var(--atlas-head)', hover:'rgba(255,255,255,0.075)',
+        chip:'var(--atlas-chip)', chipInk:'var(--atlas-chip-ink)', mono:'var(--atlas-mono)', ui:'var(--atlas-ui)',
+        rad:'var(--atlas-radius)', radSm:'var(--atlas-radius)', headBg:'var(--atlas-head-bg)',
+        tableBg:'transparent', rowBg:'transparent', track:'var(--atlas-track)',
+        blur:'var(--atlas-blur)', shadow:'none', scale:true,
+        legNegC:'var(--atlas-leg-neg)', legPosC:'var(--atlas-leg-pos)',
+        legGrad:'linear-gradient(90deg,rgb(64,100,150),rgba(255,255,255,.10),rgb(125,98,33))' };
     }
     return { dark:false, bg:'#eef1ee', surface:'#ffffff', panel:'#ffffff', ink:'#171b19', sub:'#5c645f', faint:'#9aa29c',
       line:'#e2e6e2', line2:'#eef1ee', accent:'#0e7a52', accent2:'#0b6bb0', head:'#f6f8f6', hover:'#f2f7f4',
-      chip:'#e8f3ed', chipInk:'#0e6b48', mono:'"IBM Plex Mono", ui-monospace, monospace',
-      ui:'"Helvetica Neue", Helvetica, Arial, sans-serif' };
+      chip:'#e8f3ed', chipInk:'#0e6b48', mono:MONO,
+      ui:'"Helvetica Neue", Helvetica, Arial, sans-serif',
+      rad:'7px', radSm:'4px', headBg:'rgba(86,180,233,0.16)', tableBg:'#ffffff', rowBg:'#ffffff', track:'#e6efe9',
+      blur:'none', shadow:'0 14px 40px rgba(0,0,0,.12)', scale:false,
+      legNegC:'#0b6bb0', legPosC:'#c94a4a',
+      legGrad:'linear-gradient(90deg,rgb(58,110,176),#f4f6f4,rgb(198,74,74))' };
   }
+  viridis(x){
+    x=Math.max(0,Math.min(1,isNaN(x)?0:x));
+    const S=[[68,1,84],[59,82,139],[33,144,140],[94,201,98],[253,231,37]];
+    const p=x*(S.length-1), i=Math.min(S.length-2,Math.floor(p)), f=p-i;
+    return this.mix(S[i],S[i+1],f);
+  }
+  puColor(v,t){ return t.scale ? this.viridis(v) : t.accent; }
   green(x){
     const t=this.theme(); x=Math.max(0,Math.min(1,x));
     if (t.dark){ return { bg:this.mix([22,30,27],[26,150,104],x), fg: x>0.45?'#eafff5':'#a9d9c6' }; }
@@ -361,12 +542,20 @@ class Component extends DCLogic {
   }
   amber(x){
     const t=this.theme(); x=Math.max(0,Math.min(1,x));
+    if (t.atlas){ return { bg:this.mix([10,10,11],[104,108,116],x*0.8), fg:'#F4F5F7' }; }
     if (t.dark){ return { bg:this.mix([28,26,20],[204,148,52],x), fg: x>0.5?'#fff4de':'#d8c39a' }; }
     return { bg:this.mix([250,244,229],[199,138,32],x), fg: x>0.55?'#ffffff':'#5a4212' };
   }
   div(v){
     if (v===null||v===undefined||Number.isNaN(v)) return null;
     const t=this.theme(); const x=Math.max(-1,Math.min(1, v/6)); const m=Math.abs(x);
+    if (t.atlas){
+      // Fills are capped below the luminance band where neither light nor dark
+      // text clears AA, so the numeral always stays light and legible.
+      const base=[10,10,11];
+      const bg = x>=0 ? this.mix(base,[227,178,60],m*0.52) : this.mix(base,[91,143,214],m*0.68);
+      return { bg, fg:'#F4F5F7' };
+    }
     if (t.dark){
       const base=[23,29,28];
       const bg = x>=0 ? this.mix(base,[198,88,82],m) : this.mix(base,[74,132,196],m);
@@ -382,8 +571,7 @@ class Component extends DCLogic {
   // ---------- sorting ----------
   sortField(key){
     return { rank:'modelRank', gene:'gene', pu:'pu_score', iei:'IEI', loeuf:'lof_oe_ci_upper',
-      misz:'mis_z_score', gwas:'gwas_score', rest:'rest_signed_log10p', s8:'stim8hr_signed_log10p',
-      s48:'stim48hr_signed_log10p' }[key];
+      misz:'mis_z_score', gwas:'gwas_score', reg:'_regSig', status:'_statusRank' }[key];
   }
   applySort(arr, key, dir){
     const f=this.sortField(key); const s=dir==='asc'?1:-1;
@@ -420,7 +608,7 @@ class Component extends DCLogic {
     const clamp=(x)=>Math.max(0,Math.min(1,x));
     const feat=(label,val,pct,color)=>({ label, value:val, barStyle:{ width:(clamp(pct)*100).toFixed(1)+'%', height:'100%', borderRadius:'4px', background:color } });
     const features=[
-      feat('PU model score', num('pu_score',3), d.pu_score, t.accent),
+      feat('PU model score', num('pu_score',3), d.pu_score, this.puColor(d.pu_score,t)),
       feat('GWAS credible-set', num('gwas_score',3), (d.gwas_score||0), t.accent2),
       feat('Missense constraint (Z)', num('mis_z_score',2), (d.mis_z_score||0)/8, t.accent2)
     ];
@@ -431,13 +619,42 @@ class Component extends DCLogic {
     else if (loeuf<0.6) loeufNote='LOEUF '+loeuf.toFixed(3)+' — moderately constrained against loss of function.';
     else loeufNote='LOEUF '+loeuf.toFixed(3)+' — relatively tolerant to loss of function.';
 
-    const eqRow=(state,cb,se,lp)=>{ const o=this.div(d[lp]); const base=this.cell(t,{textAlign:'center',height:'34px',borderBottom:'1px solid '+t.line2,fontWeight:'600'});
-      return { state, beta:this.fmt(d[cb],3), se:this.fmt(d[se],3), logText:this.fmt(d[lp],3), logStyle: o?Object.assign(base,{background:o.bg,color:o.fg}):Object.assign(base,{color:t.faint}) }; };
-    const eqRows=[
-      eqRow('Resting','rest_coef_beta','rest_se_beta','rest_signed_log10p'),
-      eqRow('Stim 8 hr','stim8hr_coef_beta','stim8hr_se_beta','stim8hr_signed_log10p'),
-      eqRow('Stim 48 hr','stim48hr_coef_beta','stim48hr_se_beta','stim48hr_signed_log10p')
-    ];
+    const eqRow=(state,key)=>{ const v=d[key]; const base=this.cell(t,{textAlign:'center',height:'34px',borderBottom:'1px solid '+t.line2,fontWeight:'600'});
+      return { state, sigText: v ? 'Significant' : 'Not significant',
+        sigStyle: v ? Object.assign(base,{color:t.accent}) : Object.assign(base,{color:t.faint}) }; };
+    const regScored = d.reg_burden_sig_Rest!==null && d.reg_burden_sig_Rest!==undefined;
+    const regRows = regScored ? [
+      eqRow('Resting','reg_burden_sig_Rest'),
+      eqRow('Stim 8 hr','reg_burden_sig_Stim8hr'),
+      eqRow('Stim 48 hr','reg_burden_sig_Stim48hr')
+    ] : [];
+    const reg = { has:regScored, rows:regRows,
+      residText: regScored ? this.fmt(d.expected_n_regulators_residuals,2) : '—',
+      noteText: regScored ? '' : 'No regulator-burden analysis for '+d.gene+'.' };
+
+    // Subset polarization and cytokine regulation are their own analyses with
+    // their own gene coverage, so each gets its own presence check rather than
+    // riding on the polarization score card.
+    const thScored = d.zscore_Th1!==null && d.zscore_Th1!==undefined;
+    const thRowStyle={ display:'flex', alignItems:'baseline', justifyContent:'space-between', gap:'12px', padding:'8px 0', borderBottom:'1px solid '+t.line2 };
+    const th = { has:thScored,
+      fields: thScored ? [
+        { label:'z (Th1)',  value:this.fmt(d.zscore_Th1,2),  rowStyle:thRowStyle },
+        { label:'z (Th2)',  value:this.fmt(d.zscore_Th2,2),  rowStyle:thRowStyle },
+        { label:'z (Th17)', value:this.fmt(d.zscore_Th17,2), rowStyle:thRowStyle },
+        { label:'z (Treg)', value:this.fmt(d.zscore_Treg,2), rowStyle:thRowStyle }
+      ] : [],
+      noteText: thScored ? '' : 'No subset polarization z-scores for '+d.gene+'.' };
+
+    const cytScored = d.n_sig_regulated_cytokines_Rest!==null && d.n_sig_regulated_cytokines_Rest!==undefined;
+    const cytRow=(state,a,b)=>({ state, cyto:this.fmt(d[a],0), recep:this.fmt(d[b],0) });
+    const cyt = { has:cytScored,
+      rows: cytScored ? [
+        cytRow('Resting','n_sig_regulated_cytokines_Rest','n_sig_regulated_cytokine_receptors_Rest'),
+        cytRow('Stim 8 hr','n_sig_regulated_cytokines_Stim8hr','n_sig_regulated_cytokine_receptors_Stim8hr'),
+        cytRow('Stim 48 hr','n_sig_regulated_cytokines_Stim48hr','n_sig_regulated_cytokine_receptors_Stim48hr')
+      ] : [],
+      noteText: cytScored ? '' : 'No cytokine-regulation analysis for '+d.gene+'.' };
     const g=d.gene;
     const ensg = d.ensembl || d.ensembl_id || d.ensg || d.ENSEMBL || d.gene_id || null;
     const links=[
@@ -462,6 +679,7 @@ class Component extends DCLogic {
       const drugs=(rec.drugs? rec.drugs.split(';').map(s=>s.trim()).filter(Boolean):[]).map(name=>({ name, style:{ display:'inline-block', fontFamily:t.ui, fontSize:'11px', fontWeight:'600', color:t.chipInk, background:t.chip, border:'1px solid '+(t.dark?'#274a3a':'#cfe7db'), borderRadius:'5px', padding:'3px 8px' } }));
       return { label, has:true, fields, drugs, hasDrugs:drugs.length>0, noteText:'' };
     };
+    const cfgRest=cfgBlock('Rest', cfgSrc.rest);
     const cfg8=cfgBlock('Stimulated 8 hr', cfgSrc.stim8hr);
     const cfg48=cfgBlock('Stimulated 48 hr', cfgSrc.stim48hr);
 
@@ -484,96 +702,118 @@ class Component extends DCLogic {
       noteText:''
     } : { has:false, fields:[], knownReg:false, regType:'', noteText:'No polarization score for '+d.gene+'.' };
 
+    const flag=(k)=>(d[k]===null||d[k]===undefined)?'—':(d[k]?'1':'0');
     const raw=[
       ['pu_score',num('pu_score',3)],['lof.oe_ci.upper',num('lof_oe_ci_upper',3)],['mis.z_score',num('mis_z_score',3)],
       ['IEI',d.IEI?'1':'0'],['gwas_score',num('gwas_score',3)],
-      ['rest_coef_beta',num('rest_coef_beta',3)],['rest_se_beta',num('rest_se_beta',3)],['rest_signed_log10p',num('rest_signed_log10p',3)],
-      ['stim8hr_coef_beta',num('stim8hr_coef_beta',3)],['stim8hr_se_beta',num('stim8hr_se_beta',3)],['stim8hr_signed_log10p',num('stim8hr_signed_log10p',3)],
-      ['stim48hr_coef_beta',num('stim48hr_coef_beta',3)],['stim48hr_se_beta',num('stim48hr_se_beta',3)],['stim48hr_signed_log10p',num('stim48hr_signed_log10p',3)]
+      ['drug_status',d.drug_status||'—'],['furthest_stage',d.furthest_stage||'—'],
+      ['crossdonor_confidence',num('crossdonor_confidence',4)],['crossdonor_correlation_mean',num('crossdonor_correlation_mean',4)],
+      ['expected_n_regulators_residuals',num('expected_n_regulators_residuals',3)],
+      ['reg_burden_sig_Rest',flag('reg_burden_sig_Rest')],['reg_burden_sig_Stim8hr',flag('reg_burden_sig_Stim8hr')],['reg_burden_sig_Stim48hr',flag('reg_burden_sig_Stim48hr')],
+      ['zscore_Th1',num('zscore_Th1',3)],['zscore_Th2',num('zscore_Th2',3)],['zscore_Th17',num('zscore_Th17',3)],['zscore_Treg',num('zscore_Treg',3)],
+      ['polar_coef_rank_Rest',num('polar_coef_rank_Rest',4)],['polar_coef_rank_Stim8hr',num('polar_coef_rank_Stim8hr',4)],['polar_coef_rank_Stim48hr',num('polar_coef_rank_Stim48hr',4)],
+      ['polar_rank_range',num('polar_rank_range',4)],
+      ['n_sig_regulated_cytokines_Rest',num('n_sig_regulated_cytokines_Rest',0)],['n_sig_regulated_cytokines_Stim8hr',num('n_sig_regulated_cytokines_Stim8hr',0)],['n_sig_regulated_cytokines_Stim48hr',num('n_sig_regulated_cytokines_Stim48hr',0)],
+      ['n_sig_regulated_cytokine_receptors_Rest',num('n_sig_regulated_cytokine_receptors_Rest',0)],['n_sig_regulated_cytokine_receptors_Stim8hr',num('n_sig_regulated_cytokine_receptors_Stim8hr',0)],['n_sig_regulated_cytokine_receptors_Stim48hr',num('n_sig_regulated_cytokine_receptors_Stim48hr',0)]
     ].map(([label,value])=>({label,value}));
 
     const total=(window.__TARGET_TOTAL__||(this.state.data||[]).length).toLocaleString();
     return {
       gene:d.gene, ieiBadge:!!d.IEI,
+      statusBadge:d._statusRank>0, statusText:(d.drug_status==='approved'?'Approved':'In Trial'),
       rankText:'Rank #'+d.modelRank+' of '+total+' scored genes',
       puText:d.pu_score.toFixed(3),
-      gaugeStyle:{ width:(d.pu_score*100).toFixed(1)+'%', height:'100%', borderRadius:'5px', background:t.accent },
-      features, loeufNote, eqRows, links, raw, cfg8, cfg48, pol
+      gaugeStyle:{ width:(d.pu_score*100).toFixed(1)+'%', height:'100%', borderRadius:t.radSm, background:this.puColor(d.pu_score,t) },
+      features, loeufNote, reg, th, cyt, links, raw, cfgRest, cfg8, cfg48, pol
     };
   }
 
   rowVM(d,t){
     const gw = (d.gwas_score && d.gwas_score>0) ? this.amber(Math.min(1,d.gwas_score)) : null;
-    const rest=this.div(d.rest_signed_log10p), s8=this.div(d.stim8hr_signed_log10p), s48=this.div(d.stim48hr_signed_log10p);
-    const heat=o=> o ? this.cell(t,{textAlign:'center',background:o.bg,color:o.fg,fontWeight:'500'}) : this.cell(t,{textAlign:'center',color:t.faint});
-    const loeufConstrained = (d.lof_oe_ci_upper!==null && d.lof_oe_ci_upper<0.35);
+    const pip=(v)=>({ display:'inline-block', width:'7px', height:'7px', borderRadius:'50%',
+      background: v ? t.accent : 'transparent', border:'1px solid '+(v ? t.accent : t.line) });
+    const statusLabel = d.drug_status==='approved' ? 'Approved' : 'In Trial';
+    const statusChip = { display:'inline-block', fontFamily:t.mono, fontSize:'9px', fontWeight:'500', letterSpacing:'.6px',
+      color: d.drug_status==='approved' ? t.chipInk : t.sub, background:t.atlas?'transparent':t.chip,
+      border:'1px solid '+(d.drug_status==='approved' ? (t.atlas?'rgba(94,201,98,.45)':(t.dark?'#274a3a':'#cfe7db')) : t.line),
+      borderRadius:t.radSm, padding:'2px 6px', whiteSpace:'nowrap' };
+    const q=this._q||{};
+    const has=(v)=>v!==null&&v!==undefined&&v!==''&&!Number.isNaN(Number(v));
+    const loeufHot = has(d.lof_oe_ci_upper) && q.loeufP25!=null && Number(d.lof_oe_ci_upper) < q.loeufP25;
+    const miszHot  = has(d.mis_z_score)     && q.miszP75!=null  && Number(d.mis_z_score)     > q.miszP75;
+    const gwasHot  = has(d.gwas_score)      && q.gwasP75!=null  && Number(d.gwas_score)      > q.gwasP75;
+    const mark=(hot,extra)=>this.cell(t, Object.assign({ color: hot?t.accent:t.ink, fontWeight: hot?'600':'400' }, extra||{}));
     return {
       rank:d.modelRank, gene:d.gene, ieiBadge:!!d.IEI, open:()=>this.openGene(d),
-      rowStyle:{ cursor:'pointer', background:t.surface },
+      rowStyle:{ cursor:'pointer', background:t.rowBg },
       rankCell:this.cell(t,{ color:t.faint, textAlign:'center', width:'42px' }),
-      geneCell:this.cell(t,{ textAlign:'center', fontFamily:t.ui, fontWeight:'600', color:t.accent2, fontSize:'12.5px', letterSpacing:'.2px' }),
+      geneCell:this.cell(t,{ textAlign:'center', fontFamily:t.mono, fontWeight:'600', color:t.accent2, fontSize:'12.5px', letterSpacing:'.4px' }),
       puText:d.pu_score.toFixed(3),
-      puBar:{ position:'absolute', left:0, top:0, bottom:0, width:(d.pu_score*100).toFixed(1)+'%', background:t.accent, borderRadius:'3px' },
-      loeufText:this.fmt(d.lof_oe_ci_upper,3), loeufCell:this.cell(t,{ color: loeufConstrained?t.accent:t.ink, fontWeight: loeufConstrained?'600':'400' }),
-      miszText:this.fmt(d.mis_z_score,2), miszCell:this.cell(t,{}),
-      gwasText:(d.gwas_score&&d.gwas_score>0)?this.fmt(d.gwas_score,3):'—', gwasCell: gw?this.cell(t,{textAlign:'center',background:gw.bg,color:gw.fg,fontWeight:'500'}):this.cell(t,{textAlign:'center',color:t.faint}),
-      restText:this.fmt(d.rest_signed_log10p,2), restCell:heat(rest),
-      s8Text:this.fmt(d.stim8hr_signed_log10p,2), s8Cell:heat(s8),
-      s48Text:this.fmt(d.stim48hr_signed_log10p,2), s48Cell:heat(s48)
+      puBar:{ position:'absolute', left:0, top:0, bottom:0, width:(d.pu_score*100).toFixed(1)+'%', background:this.puColor(d.pu_score,t), borderRadius:t.radSm },
+      loeufText:this.fmt(d.lof_oe_ci_upper,3), loeufCell:mark(loeufHot),
+      miszText:this.fmt(d.mis_z_score,2), miszCell:mark(miszHot),
+      gwasText:(d.gwas_score&&d.gwas_score>0)?this.fmt(d.gwas_score,3):'—', gwasCell: gw?this.cell(t,{textAlign:'center',background:gwasHot?'transparent':gw.bg,color:gwasHot?t.accent:gw.fg,fontWeight:'600'}):this.cell(t,{textAlign:'center',color:t.faint,background:'transparent'}),
+      hasReg:d._regSig!==null, noReg:d._regSig===null,
+      pipRest:pip(d.reg_burden_sig_Rest), pip8:pip(d.reg_burden_sig_Stim8hr), pip48:pip(d.reg_burden_sig_Stim48hr),
+      hasStatus:d._statusRank>0, statusText:statusLabel, statusStyle:statusChip
     };
   }
 
   styles(t){
-    const th=(extra)=>Object.assign({ position:'sticky', top:0, zIndex:2, background:t.head, padding:'0 10px', height:'42px',
-      fontFamily:t.ui, fontSize:'10.5px', fontWeight:'600', letterSpacing:'.6px', textTransform:'uppercase', color:t.sub,
-      borderBottom:'2px solid '+t.line, cursor:'pointer', userSelect:'none', textAlign:'right', whiteSpace:'nowrap', boxSizing:'border-box' }, extra||{});
-    const btn={ fontFamily:t.ui, fontSize:'12px', fontWeight:'600', color:t.ink, background:t.surface, border:'1px solid '+t.line,
-      borderRadius:'7px', padding:'7px 13px', cursor:'pointer', whiteSpace:'nowrap' };
+    const th=(extra)=>Object.assign({ position:'sticky', top:0, zIndex:5, background:t.head, padding:'0 10px', height:'38px',
+      backdropFilter:t.blur, WebkitBackdropFilter:t.blur,
+      fontFamily:t.mono, fontSize:'9.5px', fontWeight:'500', letterSpacing:'1px', textTransform:'uppercase', color:t.sub,
+      borderBottom:'1px solid '+t.line, cursor:'pointer', userSelect:'none', textAlign:'right', whiteSpace:'nowrap', boxSizing:'border-box' }, extra||{});
+    const btn={ fontFamily:t.mono, fontSize:'11.5px', fontWeight:'500', letterSpacing:'.4px', color:t.ink, background:t.surface, border:'1px solid '+t.line,
+      borderRadius:t.rad, padding:'8px 13px', cursor:'pointer', whiteSpace:'nowrap' };
     return {
-      app:{ minHeight:'100vh', background:t.bg, color:t.ink, fontFamily:t.ui, WebkitFontSmoothing:'antialiased' },
-      page:{ minHeight:'100vh', display:'flex', flexDirection:'column' },
+      app:{ height:'100dvh', minHeight:'100dvh', background:t.bg, color:t.ink, fontFamily:t.ui, WebkitFontSmoothing:'antialiased' },
+      page:{ height:'100dvh', minHeight:'0', display:'flex', flexDirection:'column' },
 
       topbar:{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:'20px', flexWrap:'wrap',
-        padding:'26px 32px', background:'rgba(86,180,233,0.16)', borderBottom:'1px solid '+t.line },
-      brand:{ display:'flex', alignItems:'center', gap:'18px', flexWrap:'wrap' },
-      logoMark:{ width:(this.props.logoSize||68)+'px', height:(this.props.logoSize||68)+'px', objectFit:'contain', display:'block', flexShrink:0 },
+        padding:'16px 28px', background:t.headBg, backdropFilter:t.blur, WebkitBackdropFilter:t.blur, borderBottom:'1px solid '+t.line },
+      brand:{ display:'flex', alignItems:'center', gap:'13px', flexWrap:'wrap' },
+      logoMark:{ width:(this.props.logoSize||40)+'px', height:(this.props.logoSize||40)+'px', objectFit:'contain', display:'block', flexShrink:0 },
       titleRow:{ display:'flex', alignItems:'center', gap:'14px', flexWrap:'wrap' },
-      title:{ fontSize:'27px', fontWeight:'700', letterSpacing:'-.4px', color:t.ink },
-      reportBtn:{ display:'inline-block', alignSelf:'center', fontFamily:t.ui, fontSize:'12.5px', fontWeight:'600', color:t.dark?'#f5f7f7':'#111111', textDecoration:'none',
-        background:'transparent', border:'1px solid '+(t.dark?'#4a5560':'#b7c3cc'), borderRadius:'7px', padding:'8px 14px', whiteSpace:'nowrap' },
-      reportBtnHover:{ background:t.hover, borderColor:t.accent2 },
-      subtitle:{ fontSize:'15px', color:t.sub, marginTop:'4px' },
+      title:{ fontSize:'17px', fontWeight:'500', letterSpacing:'-.2px', color:t.ink },
+      reportBtn:{ display:'inline-flex', alignItems:'center', gap:'5px', alignSelf:'center', fontFamily:t.mono, fontSize:'11px', fontWeight:'400', letterSpacing:'.5px', textTransform:'uppercase', color:t.dark?t.sub:'#111111', textDecoration:'none',
+        background:'transparent', border:'0', borderBottom:'1px solid transparent', borderRadius:'0', padding:'2px 0', whiteSpace:'nowrap' },
+      reportBtnHover:{ background:'transparent', color:t.dark?t.ink:'#111111', borderBottomColor:t.line },
+      subtitle:{ fontSize:'12.5px', color:t.sub, marginTop:'3px', letterSpacing:'.1px' },
       topRight:{ display:'flex', alignItems:'center', gap:'14px' },
       searchWrap:{ position:'relative', width:'340px', maxWidth:'52vw' },
-      searchIcon:{ position:'absolute', left:'12px', top:'50%', transform:'translateY(-50%)', fontSize:'16px', color:t.sub, pointerEvents:'none' },
-      searchInput:{ width:'100%', boxSizing:'border-box', fontFamily:t.ui, fontSize:'13.5px', color:t.ink, background:t.dark?'#0f1414':'#f7f9f7',
-        border:'1px solid '+t.line, borderRadius:'9px', padding:'11px 14px 11px 36px', outline:'none' },
-      suggestBox:{ position:'absolute', top:'46px', left:0, right:0, background:t.surface, border:'1px solid '+t.line,
-        borderRadius:'10px', boxShadow:'0 14px 40px rgba(0,0,0,'+(t.dark?'.5':'.12')+')', overflow:'hidden', zIndex:20 },
+      searchIcon:{ position:'absolute', left:'12px', top:'50%', transform:'translateY(-50%)', fontSize:'17px', color:t.atlas?t.accent:t.sub, pointerEvents:'none' },
+      searchInput:{ width:'100%', boxSizing:'border-box', fontFamily:t.mono, fontSize:'13px', letterSpacing:'.3px', color:t.ink, background:t.atlas?'rgba(255,255,255,0.045)':(t.dark?'#0f1414':'#f7f9f7'),
+        border:'1px solid '+(t.atlas?'rgba(255,255,255,0.24)':t.line), borderRadius:t.rad, padding:'11px 14px 11px 36px', outline:'none',
+        backdropFilter:t.blur, WebkitBackdropFilter:t.blur },
+      suggestBox:{ position:'absolute', top:'46px', left:0, right:0, background:t.atlas?'rgba(16,16,18,0.92)':t.surface, border:'1px solid '+t.line,
+        borderRadius:t.rad, boxShadow:t.shadow, backdropFilter:t.blur, WebkitBackdropFilter:t.blur, overflow:'hidden', zIndex:20 },
       suggestHover:{ background:t.hover },
       suggestEmpty:{ padding:'13px 15px', fontSize:'13px', color:t.sub },
       suggestPu:{ marginLeft:'auto', fontFamily:t.mono, fontSize:'12px', color:t.sub },
-      otherLink:{ fontFamily:t.ui, fontSize:'12px', fontWeight:'600', color:t.sub, textDecoration:'none',
-        border:'1px solid '+t.line, borderRadius:'7px', padding:'8px 12px', whiteSpace:'nowrap' },
+      otherLink:{ fontFamily:t.mono, fontSize:'11.5px', fontWeight:'500', color:t.sub, textDecoration:'none',
+        border:'1px solid '+t.line, borderRadius:t.rad, padding:'8px 12px', whiteSpace:'nowrap' },
 
       controls:{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:'16px', flexWrap:'wrap',
-        padding:'13px 26px', background:t.bg, borderBottom:'1px solid '+t.line },
+        padding:'11px 28px', background:t.bg, borderBottom:'1px solid '+t.line },
       controlsLeft:{ display:'flex', alignItems:'baseline', gap:'12px', flexWrap:'wrap' },
-      resultLabel:{ fontSize:'14px', fontWeight:'700', color:t.ink },
-      totalNote:{ fontSize:'12.5px', color:t.sub },
+      resultLabel:{ fontFamily:t.mono, fontSize:'12.5px', fontWeight:'500', letterSpacing:'.5px', color:t.ink },
+      totalNote:{ fontFamily:t.mono, fontSize:'11px', letterSpacing:'.3px', color:t.sub },
       controlsRight:{ display:'flex', alignItems:'center', gap:'12px', flexWrap:'wrap' },
       legend:{ display:'flex', alignItems:'center', gap:'6px' },
-      legLabel:{ fontSize:'11px', color:t.sub, marginRight:'2px' },
-      legNeg:{ fontFamily:t.mono, fontSize:'12px', color:t.accent2 },
-      legPos:{ fontFamily:t.mono, fontSize:'12px', color:'#c94a4a' },
-      legBar:{ width:'70px', height:'9px', borderRadius:'5px',
-        background:'linear-gradient(90deg,'+(t.dark?'rgb(74,132,196)':'rgb(58,110,176)')+','+(t.dark?'#23291c':'#f4f6f4')+','+(t.dark?'rgb(198,88,82)':'rgb(198,74,74)')+')' },
+      legLabel:{ fontFamily:t.mono, fontSize:'10px', letterSpacing:'.6px', color:t.sub, marginRight:'2px' },
+      legNeg:{ fontFamily:t.mono, fontSize:'11px', color:t.legNegC },
+      legPos:{ fontFamily:t.mono, fontSize:'11px', color:t.legPosC },
+      legBar:{ width:'70px', height:'6px', borderRadius:t.radSm, background:t.legGrad },
+      legDivider:{ width:'1px', height:'12px', background:t.line, margin:'0 4px' },
+      legSwatch:{ display:'inline-block', width:'8px', height:'8px', border:'1px solid '+t.accent, background:'transparent' },
+      legNote:{ fontFamily:t.mono, fontSize:'10px', letterSpacing:'.4px', color:t.sub },
       filterWrap:{ position:'relative' },
-      filterInput:{ fontFamily:t.ui, fontSize:'12.5px', color:t.ink, background:t.surface, border:'1px solid '+t.line,
-        borderRadius:'7px', padding:'8px 12px', outline:'none', width:'190px' },
+      filterInput:{ fontFamily:t.mono, fontSize:'12px', letterSpacing:'.3px', color:t.ink, background:t.surface, border:'1px solid '+t.line,
+        borderRadius:t.rad, padding:'8px 12px', outline:'none', width:'190px' },
       btnAll:btn,
 
-      tableScroll:{ flex:'1', overflow:'auto', background:t.surface, borderTop:'0' },
+      tableScroll:{ flex:'1 1 0%', minHeight:'0', overflow:'auto', background:t.tableBg, borderTop:'0' },
       table:{ borderCollapse:'collapse', width:'100%', minWidth:'880px' },
       thRank:th({ textAlign:'center', width:'52px' }),
       thGene:th({ textAlign:'center' }),
@@ -584,45 +824,54 @@ class Component extends DCLogic {
 
       puCell:this.cell(t,{ width:'150px' }),
       puWrap:{ display:'flex', alignItems:'center', justifyContent:'center', gap:'8px' },
-      puTrack:{ position:'relative', flex:'1', height:'6px', borderRadius:'3px', background:t.dark?'#1f2b26':'#e6efe9', overflow:'hidden' },
-      puNum:{ fontFamily:t.mono, fontSize:'12px', fontWeight:'600', color:t.ink, minWidth:'38px', textAlign:'right' },
+      puTrack:{ position:'relative', flex:'1', height:'5px', borderRadius:t.radSm, background:t.track, overflow:'hidden' },
+      puNum:{ fontFamily:t.mono, fontSize:'12px', fontWeight:'500', color:t.ink, minWidth:'38px', textAlign:'right' },
       ieiCell:this.cell(t,{ textAlign:'center', width:'52px' }),
-      ieiBadge:{ display:'inline-block', fontFamily:t.ui, fontSize:'9.5px', fontWeight:'700', letterSpacing:'.4px',
-        color:t.chipInk, background:t.chip, border:'1px solid '+(t.dark?'#274a3a':'#cfe7db'), borderRadius:'5px', padding:'2px 6px' },
-      ieiMini:{ fontFamily:t.ui, fontSize:'9px', fontWeight:'700', color:t.chipInk, background:t.chip, borderRadius:'4px', padding:'1px 5px' },
+      regCell:this.cell(t,{ textAlign:'center' }),
+      regResidRow:{ display:'flex', alignItems:'baseline', justifyContent:'space-between', gap:'12px', padding:'8px 0', borderBottom:'1px solid '+t.line2 },
+      dStatusBadge:{ display:'inline-block', fontFamily:t.mono, fontSize:'10px', fontWeight:'500', letterSpacing:'.6px',
+        color:t.chipInk, background:t.atlas?'transparent':t.chip, border:'1px solid '+(t.atlas?'rgba(94,201,98,.45)':(t.dark?'#274a3a':'#cfe7db')),
+        borderRadius:t.radSm, padding:'3px 8px', whiteSpace:'nowrap' },
+      pipRow:{ display:'inline-flex', alignItems:'center', gap:'4px' },
+      regNone:{ color:t.faint },
+      legPipOn:{ display:'inline-block', width:'7px', height:'7px', borderRadius:'50%', background:t.accent, border:'1px solid '+t.accent },
+      legPipOff:{ display:'inline-block', width:'7px', height:'7px', borderRadius:'50%', background:'transparent', border:'1px solid '+t.line },
+      ieiBadge:{ display:'inline-block', fontFamily:t.mono, fontSize:'9px', fontWeight:'500', letterSpacing:'.6px',
+        color:t.chipInk, background:t.atlas?'transparent':t.chip, border:'1px solid '+(t.atlas?'rgba(94,201,98,.45)':(t.dark?'#274a3a':'#cfe7db')), borderRadius:t.radSm, padding:'2px 6px' },
+      ieiMini:{ fontFamily:t.mono, fontSize:'9px', fontWeight:'500', color:t.chipInk, background:t.chip, borderRadius:t.radSm, padding:'1px 5px' },
       rowHover:{ background:t.hover },
-      emptyState:{ padding:'40px', textAlign:'center', color:t.sub, fontSize:'14px' },
+      emptyState:{ padding:'40px', textAlign:'center', color:t.sub, fontFamily:t.mono, fontSize:'12px', letterSpacing:'.4px' },
 
       pager:{ display:'flex', alignItems:'center', justifyContent:'center', gap:'18px', padding:'14px', background:t.bg, borderTop:'1px solid '+t.line },
-      pagerBtn:btn, pagerLabel:{ fontFamily:t.mono, fontSize:'12.5px', color:t.sub },
-      footer:{ padding:'14px 26px', fontSize:'11.5px', color:t.sub, background:t.bg, borderTop:'1px solid '+t.line, lineHeight:'1.5' },
+      pagerBtn:btn, pagerLabel:{ fontFamily:t.mono, fontSize:'11.5px', color:t.sub },
+      footer:{ padding:'16px 26px', fontSize:'11.5px', color:t.sub, background:t.bg, borderTop:'1px solid '+t.line, lineHeight:'1.6' },
 
       dTop:{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'16px 26px', background:t.surface, borderBottom:'1px solid '+t.line },
       dBack:Object.assign({},btn,{ fontWeight:'600' }),
-      dScroll:{ flex:'1', overflow:'auto', background:t.bg },
+      dScroll:{ flex:'1 1 0%', minHeight:'0', overflow:'auto', background:t.bg },
       dInner:{ maxWidth:'980px', margin:'0 auto', padding:'26px', display:'flex', flexDirection:'column', gap:'18px' },
       dHeader:{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', gap:'24px', flexWrap:'wrap',
-        background:t.surface, border:'1px solid '+t.line, borderRadius:'14px', padding:'24px 26px' },
+        background:t.surface, border:'1px solid '+t.line, borderRadius:t.rad, backdropFilter:t.blur, WebkitBackdropFilter:t.blur, padding:'24px 26px' },
       dHeadLeft:{ display:'flex', flexDirection:'column', gap:'8px' },
       dGeneRow:{ display:'flex', alignItems:'center', gap:'12px', flexWrap:'wrap' },
-      dGene:{ fontSize:'34px', fontWeight:'700', letterSpacing:'-.5px', color:t.ink, fontFamily:t.ui },
+      dGene:{ fontSize:'34px', fontWeight:'500', letterSpacing:'.5px', color:t.ink, fontFamily:t.mono },
       dIeiBadge:{ fontFamily:t.ui, fontSize:'11px', fontWeight:'700', color:t.chipInk, background:t.chip,
         border:'1px solid '+(t.dark?'#274a3a':'#cfe7db'), borderRadius:'6px', padding:'4px 9px' },
       dRank:{ fontFamily:t.mono, fontSize:'13px', color:t.sub },
       dHeadRight:{ minWidth:'220px', display:'flex', flexDirection:'column', gap:'6px' },
       dPuLabel:{ fontSize:'11px', textTransform:'uppercase', letterSpacing:'.6px', color:t.sub, fontWeight:'600' },
       dPuBig:{ fontFamily:t.mono, fontSize:'40px', fontWeight:'600', color:t.accent, lineHeight:'1' },
-      dGaugeTrack:{ height:'10px', borderRadius:'5px', background:t.dark?'#1f2b26':'#e6efe9', overflow:'hidden', marginTop:'4px' },
+      dGaugeTrack:{ height:'8px', borderRadius:t.radSm, background:t.track, overflow:'hidden', marginTop:'4px' },
 
       dGrid:{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'18px' },
-      dCard:{ background:t.surface, border:'1px solid '+t.line, borderRadius:'14px', padding:'22px 24px' },
+      dCard:{ background:t.surface, border:'1px solid '+t.line, borderRadius:t.rad, backdropFilter:t.blur, WebkitBackdropFilter:t.blur, padding:'22px 24px' },
       dCardTitle:{ fontSize:'14px', fontWeight:'700', color:t.ink, marginBottom:'4px' },
       dCardSub:{ fontSize:'12px', color:t.sub, marginBottom:'16px' },
       featRow:{ marginBottom:'16px' },
       featTop:{ display:'flex', justifyContent:'space-between', alignItems:'baseline', marginBottom:'6px' },
       featLabel:{ fontSize:'12.5px', color:t.sub },
       featVal:{ fontFamily:t.mono, fontSize:'13px', fontWeight:'600', color:t.ink },
-      featTrack:{ height:'8px', borderRadius:'4px', background:t.dark?'#1f2b26':'#eef2ef', overflow:'hidden' },
+      featTrack:{ height:'6px', borderRadius:t.radSm, background:t.track, overflow:'hidden' },
       constraintNote:{ marginTop:'10px', fontSize:'12px', color:t.sub, lineHeight:'1.55', paddingTop:'12px', borderTop:'1px solid '+t.line2 },
 
       eqTable:{ borderCollapse:'collapse', width:'100%', marginTop:'6px' },
@@ -641,7 +890,7 @@ class Component extends DCLogic {
       polReg:{ display:'inline-block', fontFamily:t.ui, fontSize:'11px', fontWeight:'700', color:t.chipInk, background:t.chip, border:'1px solid '+(t.dark?'#274a3a':'#cfe7db'), borderRadius:'6px', padding:'4px 10px', marginBottom:'12px' },
       linkRow:{ display:'flex', flexWrap:'wrap', gap:'10px' },
       linkBtn:{ fontFamily:t.ui, fontSize:'12.5px', fontWeight:'600', color:t.accent2, textDecoration:'none',
-        background:t.dark?'#0f1616':'#f5f8f7', border:'1px solid '+t.line, borderRadius:'8px', padding:'9px 13px' },
+        background:t.atlas?'transparent':(t.dark?'#0f1616':'#f5f8f7'), border:'1px solid '+t.line, borderRadius:t.rad, padding:'9px 13px' },
       linkBtnHover:{ background:t.hover, borderColor:t.accent2 },
 
       rawGrid:{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(210px,1fr))', gap:'2px 18px', marginTop:'4px' },
@@ -692,12 +941,12 @@ class Component extends DCLogic {
     const noSuggest = suggestions.length===0;
 
     // arrows
-    const arrows={ rank:'',gene:'',pu:'',iei:'',loeuf:'',misz:'',gwas:'',rest:'',s8:'',s48:'' };
+    const arrows={ rank:'',gene:'',pu:'',iei:'',status:'',loeuf:'',misz:'',gwas:'',reg:'' };
     arrows[sortKey] = sortDir==='asc' ? '↑' : '↓';
 
     // sort handlers
     const H={};
-    ['rank','gene','pu','iei','loeuf','misz','gwas','rest','s8','s48'].forEach(k=>{ H[k]=()=>this.setSort(k); });
+    ['rank','gene','pu','iei','status','loeuf','misz','gwas','reg'].forEach(k=>{ H[k]=()=>this.setSort(k); });
 
     return {
       st, isTable: !selectedGene, isDetail: !!selectedGene,
