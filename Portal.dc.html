@@ -687,13 +687,13 @@ class Component extends DCLogic {
     const pol = polRec ? {
       has:true,
       fields:[
-        { label:'Polarization score', value: polRec.pol.toFixed(3), rowStyle:polRowStyle },
+        { label:'Polarization score', value: this.fmt(polRec.pol,3), rowStyle:polRowStyle },
         { label:'Direction', value: dirText(polRec.dir), rowStyle:polRowStyle },
-        { label:'z (Stim 8 hr)', value: (isNaN(polRec.z8)?'—':polRec.z8.toFixed(2)), rowStyle:polRowStyle },
-        { label:'z (Stim 48 hr)', value: (isNaN(polRec.z48)?'—':polRec.z48.toFixed(2)), rowStyle:polRowStyle },
-        { label:'z (Rest)', value: (isNaN(polRec.zRest)?'—':polRec.zRest.toFixed(2)), rowStyle:polRowStyle },
-        { label:'coef (Stim 8 hr)', value: (isNaN(polRec.coef8)?'—':polRec.coef8.toFixed(4)), rowStyle:polRowStyle },
-        { label:'coef (Stim 48 hr)', value: (isNaN(polRec.coef48)?'—':polRec.coef48.toFixed(4)), rowStyle:polRowStyle },
+        { label:'z (Stim 8 hr)', value: this.fmt(polRec.z8,2), rowStyle:polRowStyle },
+        { label:'z (Stim 48 hr)', value: this.fmt(polRec.z48,2), rowStyle:polRowStyle },
+        { label:'z (Rest)', value: this.fmt(polRec.zRest,2), rowStyle:polRowStyle },
+        { label:'coef (Stim 8 hr)', value: this.fmt(polRec.coef8,4), rowStyle:polRowStyle },
+        { label:'coef (Stim 48 hr)', value: this.fmt(polRec.coef48,4), rowStyle:polRowStyle },
         { label:'Signs agree', value: polRec.signs?'Yes':'No', rowStyle:polRowStyle }
       ],
       knownReg: polRec.knownReg, regType: polRec.regType || 'Known polarization regulator',
