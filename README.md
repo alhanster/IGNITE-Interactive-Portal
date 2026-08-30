@@ -65,11 +65,6 @@ Model rank, the quartile highlight cutoffs (LOEUF <P25, Mis. Z >P75, GWAS >P75) 
 kNN percentiles are all derived from whatever you upload, so they re-scale to the new data
 automatically.
 
-## Technical report
-
-The header's **Read technical report** button links to `technical-report.pdf` at the
-repo root, served at `https://alhanster.github.io/immune-target-atlas/technical-report.pdf`.
-
 ## Files
 
 | File | Purpose |
@@ -80,6 +75,5 @@ repo root, served at `https://alhanster.github.io/immune-target-atlas/technical-
 | `target-data.js`, `cfg-data.js`, `polarization-data.js` | Generated datasets — built from `data/`. |
 | `data/` | Source CSVs. Edit these to update the site. |
 | `tools/build_data.py` | Turns the CSVs into the dataset files. |
-| `technical-report.pdf` | Linked by the header button. |
 | `assets/logo.png` | Logo / favicon. |
 | `.nojekyll` | Required for GitHub Pages. |
