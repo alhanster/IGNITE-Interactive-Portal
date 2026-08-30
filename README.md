@@ -1,16 +1,16 @@
-# Immune Target Atlas
+# IGNITE Interactive Portal
 
 ### 📖 Technical report **https://github.com/alhanster/immune-target-atlas-technical-report**
 
 A static web portal for browsing machine-learned drug-target candidates for immune
-disease. It ranks 18,692 genes by a PU-learning model score and provides a per-gene
+disease. It ranks 19,502 genes by a PU-learning model score and provides a per-gene
 detail page for each: regulator-burden signal, functional-genomics similarity to
 FDA-drugged targets, polarization score, and external validation links.
 
 Dark, monospace-data interface. No build step, no dependencies, no framework
 install — plain files served over HTTP.
 
-**Live site:** https://alhanster.github.io/immune-target-atlas/
+**Live site:** https://alhanster.github.io/IGNITE-Interactive-Portal/
 
 ## Run locally
 
@@ -35,7 +35,7 @@ git push
 
 Pages rebuilds automatically and the live site updates within a minute. The included
 `.nojekyll` file tells Pages to serve every file as-is. Every asset reference is
-relative, so the site works unchanged from the `/immune-target-atlas/` project
+relative, so the site works unchanged from the `/IGNITE-Interactive-Portal/` project
 subpath — no base tag or config needed.
 
 ## Updating the data
