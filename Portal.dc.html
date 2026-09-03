@@ -565,7 +565,7 @@ class Component extends DCLogic {
     return { bg, fg: m>0.5 ? '#ffffff' : (x>=0?'#7a2b2b':'#274a70') };
   }
   fmt(v,dp){ if(v===null||v===undefined||v===''||Number.isNaN(Number(v))) return '—'; return Number(v).toFixed(dp); }
-  cell(t,extra){ return Object.assign({ padding:'0 10px', height:'33px', borderBottom:'1px solid '+t.line2, fontFamily:t.mono, fontSize:'12px', textAlign:'center', color:t.ink, whiteSpace:'nowrap', boxSizing:'border-box' }, extra||{}); }
+  cell(t,extra){ return Object.assign({ padding:'0 10px', height:'33px', borderBottom:'1px solid '+t.line2, fontFamily:t.ui, fontSize:'12px', textAlign:'center', color:t.ink, whiteSpace:'nowrap', boxSizing:'border-box' }, extra||{}); }
 
   // ---------- sorting ----------
   sortField(key){
@@ -786,7 +786,7 @@ class Component extends DCLogic {
         borderRadius:t.rad, boxShadow:t.shadow, backdropFilter:t.blur, WebkitBackdropFilter:t.blur, overflow:'hidden', zIndex:20 },
       suggestHover:{ background:t.hover },
       suggestEmpty:{ padding:'13px 15px', fontSize:'13px', color:t.sub },
-      suggestPu:{ marginLeft:'auto', fontFamily:t.mono, fontSize:'12px', color:t.sub },
+      suggestPu:{ marginLeft:'auto', fontFamily:t.ui, fontSize:'12px', color:t.sub },
       otherLink:{ fontFamily:t.mono, fontSize:'11.5px', fontWeight:'500', color:t.sub, textDecoration:'none',
         border:'1px solid '+t.line, borderRadius:t.rad, padding:'8px 12px', whiteSpace:'nowrap' },
 
@@ -794,12 +794,12 @@ class Component extends DCLogic {
         padding:'11px 28px', background:t.bg, borderBottom:'1px solid '+t.line },
       controlsLeft:{ display:'flex', alignItems:'baseline', gap:'12px', flexWrap:'wrap' },
       resultLabel:{ fontFamily:t.mono, fontSize:'12.5px', fontWeight:'500', letterSpacing:'.5px', color:t.ink },
-      totalNote:{ fontFamily:t.mono, fontSize:'11px', letterSpacing:'.3px', color:t.sub },
+      totalNote:{ fontFamily:t.ui, fontSize:'11px', letterSpacing:'.3px', color:t.sub },
       controlsRight:{ display:'flex', alignItems:'center', gap:'12px', flexWrap:'wrap' },
       legend:{ display:'flex', alignItems:'center', gap:'6px' },
       legLabel:{ fontFamily:t.mono, fontSize:'10px', letterSpacing:'.6px', color:t.sub, marginRight:'2px' },
-      legNeg:{ fontFamily:t.mono, fontSize:'11px', color:t.legNegC },
-      legPos:{ fontFamily:t.mono, fontSize:'11px', color:t.legPosC },
+      legNeg:{ fontFamily:t.ui, fontSize:'11px', color:t.legNegC },
+      legPos:{ fontFamily:t.ui, fontSize:'11px', color:t.legPosC },
       legBar:{ width:'70px', height:'6px', borderRadius:t.radSm, background:t.legGrad },
       legDivider:{ width:'1px', height:'12px', background:t.line, margin:'0 4px' },
       legSwatch:{ display:'inline-block', width:'8px', height:'8px', border:'1px solid '+t.accent, background:'transparent' },
@@ -821,7 +821,7 @@ class Component extends DCLogic {
       puCell:this.cell(t,{ width:'150px' }),
       puWrap:{ display:'flex', alignItems:'center', justifyContent:'center', gap:'8px' },
       puTrack:{ position:'relative', flex:'1', height:'5px', borderRadius:t.radSm, background:t.track, overflow:'hidden' },
-      puNum:{ fontFamily:t.mono, fontSize:'12px', fontWeight:'500', color:t.ink, minWidth:'38px', textAlign:'right' },
+      puNum:{ fontFamily:t.ui, fontSize:'12px', fontWeight:'500', color:t.ink, minWidth:'38px', textAlign:'right' },
       ieiCell:this.cell(t,{ textAlign:'center', width:'52px' }),
       regCell:this.cell(t,{ textAlign:'center' }),
       regResidRow:{ display:'flex', alignItems:'baseline', justifyContent:'space-between', gap:'12px', padding:'8px 0', borderBottom:'1px solid '+t.line2 },
@@ -839,7 +839,7 @@ class Component extends DCLogic {
       emptyState:{ padding:'40px', textAlign:'center', color:t.sub, fontFamily:t.mono, fontSize:'12px', letterSpacing:'.4px' },
 
       pager:{ display:'flex', alignItems:'center', justifyContent:'center', gap:'18px', padding:'14px', background:t.bg, borderTop:'1px solid '+t.line },
-      pagerBtn:btn, pagerLabel:{ fontFamily:t.mono, fontSize:'11.5px', color:t.sub },
+      pagerBtn:btn, pagerLabel:{ fontFamily:t.ui, fontSize:'11.5px', color:t.sub },
       footer:{ padding:'16px 26px', fontSize:'11.5px', color:t.sub, background:t.bg, borderTop:'1px solid '+t.line, lineHeight:'1.6' },
 
       dTop:{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'16px 26px', background:t.surface, borderBottom:'1px solid '+t.line },
@@ -853,10 +853,10 @@ class Component extends DCLogic {
       dGene:{ fontSize:'34px', fontWeight:'500', letterSpacing:'.5px', color:t.ink, fontFamily:t.mono },
       dIeiBadge:{ fontFamily:t.ui, fontSize:'11px', fontWeight:'700', color:t.chipInk, background:t.chip,
         border:'1px solid '+(t.dark?'#274a3a':'#cfe7db'), borderRadius:'6px', padding:'4px 9px' },
-      dRank:{ fontFamily:t.mono, fontSize:'13px', color:t.sub },
+      dRank:{ fontFamily:t.ui, fontSize:'13px', color:t.sub },
       dHeadRight:{ minWidth:'220px', display:'flex', flexDirection:'column', gap:'6px' },
       dPuLabel:{ fontSize:'11px', textTransform:'uppercase', letterSpacing:'.6px', color:t.sub, fontWeight:'600' },
-      dPuBig:{ fontFamily:t.mono, fontSize:'40px', fontWeight:'600', color:t.accent, lineHeight:'1' },
+      dPuBig:{ fontFamily:t.ui, fontSize:'40px', fontWeight:'600', color:t.accent, lineHeight:'1' },
       dGaugeTrack:{ height:'8px', borderRadius:t.radSm, background:t.track, overflow:'hidden', marginTop:'4px' },
 
       dGrid:{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'18px' },
@@ -866,7 +866,7 @@ class Component extends DCLogic {
       featRow:{ marginBottom:'16px' },
       featTop:{ display:'flex', justifyContent:'space-between', alignItems:'baseline', marginBottom:'6px' },
       featLabel:{ fontSize:'12.5px', color:t.sub },
-      featVal:{ fontFamily:t.mono, fontSize:'13px', fontWeight:'600', color:t.ink },
+      featVal:{ fontFamily:t.ui, fontSize:'13px', fontWeight:'600', color:t.ink },
       featTrack:{ height:'6px', borderRadius:t.radSm, background:t.track, overflow:'hidden' },
       constraintNote:{ marginTop:'10px', fontSize:'12px', color:t.sub, lineHeight:'1.55', paddingTop:'12px', borderTop:'1px solid '+t.line2 },
 
@@ -879,7 +879,7 @@ class Component extends DCLogic {
       cfgBlock:{ marginTop:'14px', paddingTop:'16px', borderTop:'1px solid '+t.line2 },
       cfgHead:{ fontFamily:t.ui, fontSize:'11px', fontWeight:'700', letterSpacing:'.6px', textTransform:'uppercase', color:t.accent, marginBottom:'8px' },
       cfgLabel:{ fontSize:'12.5px', color:t.sub },
-      cfgVal:{ fontFamily:t.mono, fontSize:'12.5px', fontWeight:'600', color:t.ink, textAlign:'right' },
+      cfgVal:{ fontFamily:t.ui, fontSize:'12.5px', fontWeight:'600', color:t.ink, textAlign:'right' },
       cfgDrugLabel:{ fontSize:'11px', color:t.sub, margin:'12px 0 8px' },
       cfgDrugRow:{ display:'flex', flexWrap:'wrap', gap:'6px' },
       cfgNote:{ fontSize:'12px', color:t.faint, fontStyle:'italic', padding:'4px 0' },
@@ -892,7 +892,7 @@ class Component extends DCLogic {
       rawGrid:{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(210px,1fr))', gap:'2px 18px', marginTop:'4px' },
       rawItem:{ display:'flex', alignItems:'baseline', justifyContent:'space-between', gap:'10px', padding:'7px 0', borderBottom:'1px solid '+t.line2 },
       rawLabel:{ fontFamily:t.mono, fontSize:'11.5px', color:t.sub },
-      rawVal:{ fontFamily:t.mono, fontSize:'12px', fontWeight:'600', color:t.ink }
+      rawVal:{ fontFamily:t.ui, fontSize:'12px', fontWeight:'600', color:t.ink }
     };
   }
 
