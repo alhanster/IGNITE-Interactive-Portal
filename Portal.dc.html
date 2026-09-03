@@ -10,7 +10,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="./target-data.js"></script>
 <script src="./cfg-data.js"></script>
 <script src="./polarization-data.js"></script>
@@ -39,8 +39,8 @@
     --atlas-track:rgba(255,255,255,0.07);
     --atlas-blur:saturate(140%) blur(14px);
     --atlas-radius:0px;
-    --atlas-mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    --atlas-ui:"Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --atlas-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --atlas-ui:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
     --atlas-leg-neg:#5B8FD6;
     --atlas-leg-pos:#E3B23C;
   }
@@ -495,11 +495,12 @@ class Component extends DCLogic {
   mix(c1,c2,x){ x=Math.max(0,Math.min(1,x)); return 'rgb('+this.lerp(c1[0],c2[0],x)+','+this.lerp(c1[1],c2[1],x)+','+this.lerp(c1[2],c2[2],x)+')'; }
 
   theme(){
-    const MONO='"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
+    const MONO='"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
+    const UI='"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif';
     if (this.props.theme === 'terminal'){
       return { dark:true, bg:'#0d1112', surface:'#141a1b', panel:'#131a1a', ink:'#e7ece9', sub:'#8a978f', faint:'#5f6b64',
         line:'#26302f', line2:'#1b2322', accent:'#37d39f', accent2:'#5ab4e6', head:'#0f1515', hover:'#18211f',
-        chip:'#16231e', chipInk:'#7fe6bf', mono:MONO, ui:'"Helvetica Neue", Helvetica, Arial, sans-serif',
+        chip:'#16231e', chipInk:'#7fe6bf', mono:MONO, ui:UI,
         rad:'7px', radSm:'4px', headBg:'#141a1b', tableBg:'#141a1b', rowBg:'#141a1b', track:'#1f2b26',
         blur:'none', shadow:'0 14px 40px rgba(0,0,0,.5)', scale:false,
         legNegC:'#5ab4e6', legPosC:'#c94a4a',
@@ -520,7 +521,7 @@ class Component extends DCLogic {
     return { dark:false, bg:'#eef1ee', surface:'#ffffff', panel:'#ffffff', ink:'#171b19', sub:'#5c645f', faint:'#9aa29c',
       line:'#e2e6e2', line2:'#eef1ee', accent:'#0e7a52', accent2:'#0b6bb0', head:'#f6f8f6', hover:'#f2f7f4',
       chip:'#e8f3ed', chipInk:'#0e6b48', mono:MONO,
-      ui:'"Helvetica Neue", Helvetica, Arial, sans-serif',
+      ui:UI,
       rad:'7px', radSm:'4px', headBg:'rgba(86,180,233,0.16)', tableBg:'#ffffff', rowBg:'#ffffff', track:'#e6efe9',
       blur:'none', shadow:'0 14px 40px rgba(0,0,0,.12)', scale:false,
       legNegC:'#0b6bb0', legPosC:'#c94a4a',
