@@ -704,7 +704,7 @@ class Component extends DCLogic {
     const flag=(k)=>(d[k]===null||d[k]===undefined)?'—':(d[k]?'1':'0');
     const raw=[
       ['pu_score',num('pu_score',3)],['lof.oe_ci.upper',num('lof_oe_ci_upper',3)],['mis.z_score',num('mis_z_score',3)],
-      ['IEI',d.IEI?'1':'0'],['gwas_score',num('gwas_score',3)],
+      ['IEI',d.IEI?'1':'0'],['gwas_score',num('gwas_score',3)],['gene_burden_score',num('gene_burden_score',3)],
       ['drug_status',d.drug_status||'—'],['furthest_stage',d.furthest_stage||'—'],
       ['crossdonor_confidence',num('crossdonor_confidence',4)],['crossdonor_correlation_mean',num('crossdonor_correlation_mean',4)],
       ['expected_n_regulators_residuals',num('expected_n_regulators_residuals',3)],

@@ -28,7 +28,7 @@ The main scored gene table. One row per gene; the gene column must be unique.
 | `mis.z_score` | Missense Z. Emitted as `mis_z_score`. |
 | `IEI` | 0 or 1. Drives the IEI badge. |
 | `gwas_score` | |
-| `drug_status` | `approved`, `in trial`, or `non-target`. Drives the Status column and badge. |
+| `drug_status` | `approved`, `in trial`, or `non-target`. Drives the Status column and badge. `in-trial` is accepted and normalized to `in trial`; any other value fails the build. |
 | `furthest_stage` | Carried through to "All feature values"; no label uses it. |
 
 **Required — the three analysis blocks.** Each block is all-or-nothing per gene: a gene
@@ -41,8 +41,8 @@ either has the whole block or shows a "no data" note for that card.
 | Cytokine regulation | `n_sig_regulated_cytokines_{Rest,Stim8hr,Stim48hr}`, `n_sig_regulated_cytokine_receptors_{Rest,Stim8hr,Stim48hr}` |
 
 Also required, carried through to "All feature values" without a dedicated card:
-`crossdonor_confidence`, `crossdonor_correlation_mean`, `polar_coef_rank_{Rest,Stim8hr,Stim48hr}`,
-`polar_rank_range`.
+`crossdonor_confidence`, `crossdonor_correlation_mean`, `gene_burden_score`,
+`polar_coef_rank_{Rest,Stim8hr,Stim48hr}`, `polar_rank_range`.
 
 **Ignored if present.** These are redundant with what the page already derives, so the
 build drops them rather than letting a stale copy ship:

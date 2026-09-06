@@ -28,8 +28,15 @@ TARGET_RENAME = {'lof.oe_ci.upper': 'lof_oe_ci_upper', 'mis.z_score': 'mis_z_sco
 
 TARGET_TEXT = ['drug_status', 'furthest_stage']
 
+# Exports have shipped both spellings of the trial label; the site keys off
+# 'in trial', so fold the hyphenated form into it and reject anything else
+# rather than letting an unknown value silently read as non-target.
+DRUG_STATUS = {'approved': 'approved', 'in trial': 'in trial',
+               'in-trial': 'in trial', 'non-target': 'non-target'}
+
 TARGET_NUMERIC = [
     'pu_score', 'lof.oe_ci.upper', 'mis.z_score', 'IEI', 'gwas_score',
+    'gene_burden_score',
     'crossdonor_confidence', 'crossdonor_correlation_mean',
     'expected_n_regulators_residuals',
     'zscore_Th1', 'zscore_Th2', 'zscore_Th17', 'zscore_Treg',
@@ -203,6 +210,11 @@ def build_targets():
             matched += 1
         for col in TARGET_TEXT:
             rec[col] = text(row, col)
+        if rec['drug_status'] not in DRUG_STATUS:
+            raise BuildError('%s: %r is not a known drug_status (expected %s)'
+                             % (where, rec['drug_status'],
+                                ', '.join(sorted(DRUG_STATUS))))
+        rec['drug_status'] = DRUG_STATUS[rec['drug_status']]
         for col in TARGET_NUMERIC:
             v = num(row, col, where)
             if v is not None and col in TARGET_INTEGRAL:
