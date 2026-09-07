@@ -319,8 +319,8 @@
         </div>
 
         <div style="{{ st.dCard }}">
-          <div style="{{ st.dCardTitle }}">Functional-genomics signature similarity to FDA-drugged targets</div>
-          <div style="{{ st.dCardSub }}">kNN target-similarity evidence and nearest FDA-drugged target, by T-cell activation state</div>
+          <div style="{{ st.dCardTitle }}">Functional-genomics signature similarity to approved drug targets</div>
+          <div style="{{ st.dCardSub }}">kNN target-similarity evidence and nearest approved drug target, by T-cell activation state</div>
 
           <div style="{{ st.cfgBlock }}">
             <div style="{{ st.cfgHead }}">{{ detail.cfgRest.label }}</div>
@@ -332,7 +332,7 @@
                 </div>
               </sc-for>
               <sc-if value="{{ detail.cfgRest.hasDrugs }}" hint-placeholder-val="{{ false }}">
-                <div style="{{ st.cfgDrugLabel }}">FDA drugs targeting nearest gene</div>
+                <div style="{{ st.cfgDrugLabel }}">Approved drugs targeting nearest gene</div>
                 <div style="{{ st.cfgDrugRow }}">
                   <sc-for list="{{ detail.cfgRest.drugs }}" as="dg" hint-placeholder-count="0"><span style="{{ dg.style }}">{{ dg.name }}</span></sc-for>
                 </div>
@@ -351,7 +351,7 @@
                 </div>
               </sc-for>
               <sc-if value="{{ detail.cfg8.hasDrugs }}" hint-placeholder-val="{{ false }}">
-                <div style="{{ st.cfgDrugLabel }}">FDA drugs targeting nearest gene</div>
+                <div style="{{ st.cfgDrugLabel }}">Approved drugs targeting nearest gene</div>
                 <div style="{{ st.cfgDrugRow }}">
                   <sc-for list="{{ detail.cfg8.drugs }}" as="dg" hint-placeholder-count="0"><span style="{{ dg.style }}">{{ dg.name }}</span></sc-for>
                 </div>
@@ -370,7 +370,7 @@
                 </div>
               </sc-for>
               <sc-if value="{{ detail.cfg48.hasDrugs }}" hint-placeholder-val="{{ false }}">
-                <div style="{{ st.cfgDrugLabel }}">FDA drugs targeting nearest gene</div>
+                <div style="{{ st.cfgDrugLabel }}">Approved drugs targeting nearest gene</div>
                 <div style="{{ st.cfgDrugRow }}">
                   <sc-for list="{{ detail.cfg48.drugs }}" as="dg" hint-placeholder-count="0"><span style="{{ dg.style }}">{{ dg.name }}</span></sc-for>
                 </div>
@@ -669,9 +669,9 @@ class Component extends DCLogic {
       const fields=[
         { k:'kNN max score (cosine similarity, −1 to 1)', v: (rec.knn!=null?rec.knn.toFixed(4):'—'), bar:{ width:(clampT(rec.knn||0)*100).toFixed(1)+'%', height:'100%', borderRadius:'4px', background:t.accent } },
         { k:'kNN percentile (within condition)', v: (rec.pctl!=null?rec.pctl.toFixed(1)+'%':'—'), bar:{ width:(clampT((rec.pctl||0)/100)*100).toFixed(1)+'%', height:'100%', borderRadius:'4px', background:t.accent2 } },
-        { k:'Nearest FDA target', v: rec.nearest||'—', bar:null },
+        { k:'Nearest approved drug target', v: rec.nearest||'—', bar:null },
         { k:'Downstream genes (|z|≥3)', v: (rec.ndown!=null?rec.ndown.toLocaleString():'—'), bar:null },
-        { k:'Is FDA target', v: rec.isfda?'Yes':'No', bar:null }
+        { k:'Is approved drug target', v: rec.isfda?'Yes':'No', bar:null }
       ].map(f=>({ label:f.k, value:f.v,
         rowStyle:{ display:'flex', alignItems:'baseline', justifyContent:'space-between', gap:'12px', padding:'8px 0', borderBottom:'1px solid '+t.line2 },
         barStyle: f.bar }));
