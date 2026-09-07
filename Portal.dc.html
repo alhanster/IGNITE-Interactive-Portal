@@ -889,10 +889,10 @@ class Component extends DCLogic {
         background:t.atlas?'transparent':(t.dark?'#0f1616':'#f5f8f7'), border:'1px solid '+t.line, borderRadius:t.rad, padding:'9px 13px' },
       linkBtnHover:{ background:t.hover, borderColor:t.accent2 },
 
-      rawGrid:{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(210px,1fr))', gap:'2px 18px', marginTop:'4px' },
-      rawItem:{ display:'flex', alignItems:'baseline', justifyContent:'space-between', gap:'10px', padding:'7px 0', borderBottom:'1px solid '+t.line2 },
-      rawLabel:{ fontFamily:t.mono, fontSize:'11.5px', color:t.sub },
-      rawVal:{ fontFamily:t.ui, fontSize:'12px', fontWeight:'600', color:t.ink }
+      rawGrid:{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(270px,1fr))', gap:'2px 18px', marginTop:'4px' },
+      rawItem:{ display:'flex', alignItems:'baseline', justifyContent:'space-between', gap:'10px', padding:'7px 0', borderBottom:'1px solid '+t.line2, minWidth:'0' },
+      rawLabel:{ fontFamily:t.mono, fontSize:'10px', color:t.sub, minWidth:'0', overflowWrap:'anywhere' },
+      rawVal:{ fontFamily:t.ui, fontSize:'12px', fontWeight:'600', color:t.ink, whiteSpace:'nowrap', flexShrink:'0' }
     };
   }
 
