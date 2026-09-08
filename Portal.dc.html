@@ -88,6 +88,7 @@
     .ita-brandtext{ display:contents !important; }
     .ita-title{ flex:1 1 auto !important; min-width:0 !important; font-size:clamp(18px, 5.4vw, 24px) !important; line-height:1.1 !important; }
     .ita-logo{ width:38px !important; height:38px !important; }
+    .ita-logo-school{ height:30px !important; width:auto !important; flex-shrink:0 !important; }
     .ita-subtitle{ flex-basis:100% !important; font-size:clamp(9px, 3.1vw, 13px) !important; letter-spacing:-.2px !important; margin-top:4px !important; }
     .ita-search input{ font-size:16px !important; padding:13px 16px 13px 40px !important; background:rgba(255,255,255,.045) !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
     .ita-search .ita-search-icon{ font-size:18px !important; }
@@ -119,6 +120,7 @@
 
     <div class="ita-topbar" style="{{ st.topbar }}">
       <div class="{{ brandClass }}" style="{{ st.brand }}">
+        <img class="ita-logo-school" src="assets/UM_LOGO.png" alt="University of Michigan Medical School — Michigan Medicine" style="{{ st.schoolLogo }}" />
         <img class="ita-logo" src="assets/logo.png" alt="IGNITE" style="{{ st.logoMark }}" />
         <div class="ita-brandtext">
           <div class="ita-title" style="{{ st.title }}">IGNITE</div>
@@ -773,6 +775,9 @@ class Component extends DCLogic {
         padding:'16px 28px', background:t.headBg, backdropFilter:t.blur, WebkitBackdropFilter:t.blur, borderBottom:'1px solid '+t.line },
       brand:{ display:'flex', alignItems:'center', gap:'13px', flexWrap:'wrap' },
       logoMark:{ width:(this.props.logoSize||40)+'px', height:(this.props.logoSize||40)+'px', objectFit:'contain', display:'block', flexShrink:0 },
+      // White-and-maize artwork on transparency, so it composites straight onto the bar —
+      // no plate. Sized by height with width:auto so the lockup's own ratio is preserved.
+      schoolLogo:{ height:'48px', width:'auto', display:'block', flexShrink:0 },
       titleRow:{ display:'flex', alignItems:'center', gap:'14px', flexWrap:'wrap' },
       title:{ fontSize:'17px', fontWeight:'500', letterSpacing:'-.2px', color:t.ink },
       subtitle:{ fontSize:'12.5px', color:t.sub, marginTop:'3px', letterSpacing:'.1px' },
