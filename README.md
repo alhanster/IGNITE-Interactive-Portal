@@ -9,7 +9,7 @@ polarization score, and external validation links.
 Dark, monospace-data interface. No build step, no dependencies, no framework
 install — plain files served over HTTP.
 
-**Live site:** https://alhanster.github.io/IGNITE-Interactive-Portal/
+**Live site:** https://ignite.eecs.umich.edu/
 
 ## Run locally
 
