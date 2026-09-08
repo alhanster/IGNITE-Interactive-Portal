@@ -74,7 +74,10 @@
          (max-height: 520px) and (orientation: landscape){
     .ita-dgrid{ grid-template-columns:1fr !important; }
     .ita-dinner{ padding:16px !important; padding-left:max(16px, env(safe-area-inset-left)) !important; padding-right:max(16px, env(safe-area-inset-right)) !important; padding-bottom:max(24px, env(safe-area-inset-bottom)) !important; }
-    .ita-topbar{ padding:14px 16px !important; padding-top:max(14px, env(safe-area-inset-top)) !important; padding-left:max(16px, env(safe-area-inset-left)) !important; padding-right:max(16px, env(safe-area-inset-right)) !important; }
+    /* row-gap is the single lever for brand block -> search field; the column gap is
+       irrelevant here since both children are full-width. st.topbar sets gap inline,
+       hence !important. */
+    .ita-topbar{ padding:0 !important; padding-top:env(safe-area-inset-top) !important; padding-bottom:14px !important; padding-left:max(20px, env(safe-area-inset-left)) !important; padding-right:max(20px, env(safe-area-inset-right)) !important; row-gap:16px !important; }
     .ita-controls{ padding:10px 16px !important; padding-left:max(16px, env(safe-area-inset-left)) !important; padding-right:max(16px, env(safe-area-inset-right)) !important; }
     .ita-footer{ padding:14px 16px !important; padding-bottom:max(14px, env(safe-area-inset-bottom)) !important; }
     .ita-pager{ padding-bottom:max(14px, env(safe-area-inset-bottom)) !important; }
@@ -83,12 +86,32 @@
     .ita-dheadright{ min-width:0 !important; width:100% !important; }
 
     .ita-search{ width:100% !important; max-width:none !important; }
-    .ita-brand{ flex-wrap:wrap !important; align-items:center !important; gap:12px !important; width:100%; }
+    /* Two rows: UM lockup, then the IGNITE heading with the tagline beside it. The 20px
+       side inset sits on the bar so both rows share it, and row spacing is margin rather
+       than padding — box-sizing:border-box would otherwise eat the declared heights.
+       Row 2's two items are both 28px tall, so center alignment sits them flush. */
+    .ita-brand{ flex-wrap:wrap !important; align-items:center !important; gap:0 10px !important; width:100%; }
     .ita-topright{ width:100% !important; }
     .ita-brandtext{ display:contents !important; }
-    .ita-title{ flex:1 1 auto !important; min-width:0 !important; font-size:clamp(18px, 5.4vw, 24px) !important; line-height:1.1 !important; }
-    .ita-logo{ width:38px !important; height:38px !important; }
-    .ita-subtitle{ flex-basis:100% !important; font-size:clamp(9px, 3.1vw, 13px) !important; letter-spacing:-.2px !important; margin-top:4px !important; }
+    /* The virus mark is desktop-only. */
+    .ita-logo{ display:none !important; }
+    /* Row 1 — UM lockup alone. A full-width box with object-fit:contain forces the wrap
+       while leaving the artwork undistorted and left-aligned. */
+    .ita-logo-school{ flex:0 0 100% !important; width:100% !important; height:28px !important;
+      object-fit:contain !important; object-position:left center !important;
+      display:block !important; margin:12px 0 8px !important; }
+    /* Row 2 — heading, then the tagline taking whatever width is left beside it. */
+    .ita-title{ flex:0 0 auto !important; white-space:nowrap !important;
+      font-size:28px !important; line-height:1 !important; margin:0 !important; }
+    /* Two lines boxing out to exactly 28px — the same height as the 28px "IGNITE"
+       beside it. font-size x line-height is pinned to 14px per line; 12px is the
+       largest size that still wraps to two lines at 430px. */
+    .ita-subtitle{ flex:1 1 0 !important; min-width:0 !important; font-size:12px !important;
+      line-height:14px !important; letter-spacing:normal !important; margin:0 !important; }
+    /* The tagline ships as two spans so the break point is fixed here rather than left
+       to the wrap, which broke as "...for immune-mediated / disease" at 390px. Inline on
+       desktop (the space between them keeps it one line), block on mobile. */
+    .ita-subtitle span{ display:block !important; }
     .ita-search input{ font-size:16px !important; padding:13px 16px 13px 40px !important; background:rgba(255,255,255,.045) !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
     .ita-search .ita-search-icon{ font-size:18px !important; }
     .ita-filter{ width:100% !important; font-size:16px !important; padding:12px !important; }
@@ -118,11 +141,12 @@
   <div style="{{ st.page }}">
 
     <div class="ita-topbar" style="{{ st.topbar }}">
-      <div class="{{ brandClass }}" style="{{ st.brand }}">
+      <div class="ita-brand" style="{{ st.brand }}">
+        <img class="ita-logo-school" src="assets/UM_LOGO.png" alt="University of Michigan Medical School — Michigan Medicine" style="{{ st.schoolLogo }}" />
         <img class="ita-logo" src="assets/logo.png" alt="IGNITE" style="{{ st.logoMark }}" />
         <div class="ita-brandtext">
           <div class="ita-title" style="{{ st.title }}">IGNITE</div>
-          <div class="ita-subtitle" style="{{ st.subtitle }}">target prioritization for immune-mediated disease across human genes</div>
+          <div class="ita-subtitle" style="{{ st.subtitle }}"><span>prioritizes drug targets for</span> <span>immune-mediated disease</span></div>
         </div>
       </div>
       <div class="ita-topright" style="{{ st.topRight }}">
@@ -454,7 +478,7 @@
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;atlas&quot;,&quot;clinical&quot;,&quot;terminal&quot;],&quot;default&quot;:&quot;atlas&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;topCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:25,&quot;min&quot;:5,&quot;max&quot;:100,&quot;step&quot;:5,&quot;section&quot;:&quot;Table&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;mobileHeaderLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;text-right&quot;,&quot;text-below&quot;],&quot;default&quot;:&quot;text-right&quot;,&quot;section&quot;:&quot;Mobile&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;logoSize&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:40,&quot;min&quot;:24,&quot;max&quot;:96,&quot;step&quot;:2,&quot;unit&quot;:&quot;px&quot;,&quot;section&quot;:&quot;Mobile&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;otherHref&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;otherLabel&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;atlas&quot;,&quot;clinical&quot;,&quot;terminal&quot;],&quot;default&quot;:&quot;atlas&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;topCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:25,&quot;min&quot;:5,&quot;max&quot;:100,&quot;step&quot;:5,&quot;section&quot;:&quot;Table&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;logoSize&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:55,&quot;min&quot;:24,&quot;max&quot;:96,&quot;step&quot;:2,&quot;unit&quot;:&quot;px&quot;,&quot;section&quot;:&quot;Desktop&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;otherHref&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;otherLabel&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
   state = { data:null, query:'', showSuggest:false, focused:false, filter:'', sortKey:'pu', sortDir:'desc', viewAll:false, page:0, selectedGene:null };
 
@@ -772,10 +796,13 @@ class Component extends DCLogic {
       topbar:{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:'20px', flexWrap:'wrap',
         padding:'16px 28px', background:t.headBg, backdropFilter:t.blur, WebkitBackdropFilter:t.blur, borderBottom:'1px solid '+t.line },
       brand:{ display:'flex', alignItems:'center', gap:'13px', flexWrap:'wrap' },
-      logoMark:{ width:(this.props.logoSize||40)+'px', height:(this.props.logoSize||40)+'px', objectFit:'contain', display:'block', flexShrink:0 },
+      logoMark:{ width:(this.props.logoSize||55)+'px', height:(this.props.logoSize||55)+'px', objectFit:'contain', display:'block', flexShrink:0 },
+      // White-and-maize artwork on transparency, so it composites straight onto the bar —
+      // no plate. Sized by height with width:auto so the lockup's own ratio is preserved.
+      schoolLogo:{ height:'48px', width:'auto', display:'block', flexShrink:0 },
       titleRow:{ display:'flex', alignItems:'center', gap:'14px', flexWrap:'wrap' },
-      title:{ fontSize:'17px', fontWeight:'500', letterSpacing:'-.2px', color:t.ink },
-      subtitle:{ fontSize:'12.5px', color:t.sub, marginTop:'3px', letterSpacing:'.1px' },
+      title:{ fontSize:'25px', fontWeight:'500', letterSpacing:'-.2px', color:t.ink },
+      subtitle:{ fontSize:'18px', color:t.sub, marginTop:'3px', letterSpacing:'.1px' },
       topRight:{ display:'flex', alignItems:'center', gap:'14px' },
       searchWrap:{ position:'relative', width:'340px', maxWidth:'52vw' },
       searchIcon:{ position:'absolute', left:'12px', top:'50%', transform:'translateY(-50%)', fontSize:'17px', color:t.atlas?t.accent:t.sub, pointerEvents:'none' },
@@ -903,7 +930,6 @@ class Component extends DCLogic {
     const total=window.__TARGET_TOTAL__ || data.length;
     const { sortKey, sortDir, filter, viewAll, page, query, focused, selectedGene } = this.state;
     const topCount = this.props.topCount || 25;
-    const mobileHeaderLayout = this.props.mobileHeaderLayout || 'text-right';
 
     // pool
     const q=(filter||'').trim().toUpperCase();
@@ -961,7 +987,6 @@ class Component extends DCLogic {
       nextPage:()=>this.setState(s=>({page:Math.min(pageCount-1,s.page+1)})),
       detail: selectedGene ? this.detailVM(selectedGene,t) : null,
       back:()=>this.back(),
-      brandClass: 'ita-brand' + (mobileHeaderLayout==='text-below' ? ' ita-brand-below' : ''),
       hasOther: false,
       otherHref: this.props.otherHref || '#',
       otherLabelText: this.props.otherLabel || 'Other design'
