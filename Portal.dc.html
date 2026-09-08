@@ -79,6 +79,10 @@
        hence !important. */
     .ita-topbar{ padding:0 !important; padding-top:env(safe-area-inset-top) !important; padding-bottom:14px !important; padding-left:max(20px, env(safe-area-inset-left)) !important; padding-right:max(20px, env(safe-area-inset-right)) !important; row-gap:16px !important; }
     .ita-controls{ padding:10px 16px !important; padding-left:max(16px, env(safe-area-inset-left)) !important; padding-right:max(16px, env(safe-area-inset-right)) !important; }
+    /* The results-bar labels track the header tagline on desktop; mobile keeps the
+       compact metadata sizes. !important because styles(t) sets them inline. */
+    .ita-resultlabel{ font-size:12.5px !important; }
+    .ita-totalnote{ font-size:11px !important; }
     .ita-footer{ padding:14px 16px !important; padding-bottom:max(14px, env(safe-area-inset-bottom)) !important; }
     .ita-pager{ padding-bottom:max(14px, env(safe-area-inset-bottom)) !important; }
     .ita-dtop{ padding:10px 16px !important; padding-top:max(10px, env(safe-area-inset-top)) !important; }
@@ -176,8 +180,8 @@
 
     <div class="ita-controls" style="{{ st.controls }}">
       <div style="{{ st.controlsLeft }}">
-        <span style="{{ st.resultLabel }}">{{ resultLabel }}</span>
-        <span style="{{ st.totalNote }}">{{ totalNote }}</span>
+        <span class="ita-resultlabel" style="{{ st.resultLabel }}">{{ resultLabel }}</span>
+        <span class="ita-totalnote" style="{{ st.totalNote }}">{{ totalNote }}</span>
       </div>
       <div class="ita-controls-right" style="{{ st.controlsRight }}">
         <div class="ita-legend" style="{{ st.legend }}">
@@ -783,6 +787,8 @@ class Component extends DCLogic {
   }
 
   styles(t){
+    // The results-bar heading matches the header tagline, and its note sits 15% under it.
+    const brandSub = 18;
     const th=(extra)=>Object.assign({ position:'sticky', top:0, zIndex:5, background:t.head, padding:'0 10px', height:'38px',
       backdropFilter:t.blur, WebkitBackdropFilter:t.blur,
       fontFamily:t.mono, fontSize:'9.5px', fontWeight:'500', letterSpacing:'1px', textTransform:'uppercase', color:t.sub,
@@ -802,7 +808,7 @@ class Component extends DCLogic {
       schoolLogo:{ height:'48px', width:'auto', display:'block', flexShrink:0 },
       titleRow:{ display:'flex', alignItems:'center', gap:'14px', flexWrap:'wrap' },
       title:{ fontSize:'25px', fontWeight:'500', letterSpacing:'-.2px', color:t.ink },
-      subtitle:{ fontSize:'18px', color:t.sub, marginTop:'3px', letterSpacing:'.1px' },
+      subtitle:{ fontSize:brandSub+'px', color:t.sub, marginTop:'3px', letterSpacing:'.1px' },
       topRight:{ display:'flex', alignItems:'center', gap:'14px' },
       searchWrap:{ position:'relative', width:'340px', maxWidth:'52vw' },
       searchIcon:{ position:'absolute', left:'12px', top:'50%', transform:'translateY(-50%)', fontSize:'17px', color:t.atlas?t.accent:t.sub, pointerEvents:'none' },
@@ -820,8 +826,8 @@ class Component extends DCLogic {
       controls:{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:'16px', flexWrap:'wrap',
         padding:'11px 28px', background:t.bg, borderBottom:'1px solid '+t.line },
       controlsLeft:{ display:'flex', alignItems:'baseline', gap:'12px', flexWrap:'wrap' },
-      resultLabel:{ fontFamily:t.mono, fontSize:'12.5px', fontWeight:'500', letterSpacing:'.5px', color:t.ink },
-      totalNote:{ fontFamily:t.ui, fontSize:'11px', letterSpacing:'.3px', color:t.sub },
+      resultLabel:{ fontFamily:t.mono, fontSize:brandSub+'px', fontWeight:'500', letterSpacing:'.5px', color:t.ink },
+      totalNote:{ fontFamily:t.ui, fontSize:(brandSub*0.85)+'px', letterSpacing:'.3px', color:t.sub },
       controlsRight:{ display:'flex', alignItems:'center', gap:'12px', flexWrap:'wrap' },
       legend:{ display:'flex', alignItems:'center', gap:'6px' },
       legLabel:{ fontFamily:t.mono, fontSize:'10px', letterSpacing:'.6px', color:t.sub, marginRight:'2px' },
