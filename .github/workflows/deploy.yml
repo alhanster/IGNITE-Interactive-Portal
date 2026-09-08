@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy via SSH
-        uses: easingthemes/ssh-deploy@main
+        uses: easingthemes/ssh-deploy@v5.1.0
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.SERVER_HOST }}
@@ -21,6 +21,5 @@ jobs:
           TARGET: "/w/ignite/"
           EXCLUDE: "/.git/, /.github/"
           SCRIPT_AFTER: |
-            chmod -R 755 /w/ignite
-            chmod -R 644 /w/ignite/*
-            chmod -R 755 /w/ignite/*/. 2>/dev/null || true
+            find /w/ignite -type d -exec chmod 755 {} +
+            find /w/ignite -type f -exec chmod 644 {} +
