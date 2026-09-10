@@ -118,9 +118,17 @@
     .ita-search .ita-search-icon{ font-size:18px !important; }
     .ita-filter{ width:100% !important; font-size:16px !important; padding:12px !important; }
     .ita-controls-right{ width:100%; gap:10px !important; }
+    /* Filter and toggle share one row: the input takes the slack, the button holds its
+       natural width (its label is nowrap and swaps to the longer "Browse all 19,502
+       targets"). controlsRight already sets flex-wrap, so below ~340px the pair falls
+       back to two rows on its own rather than crushing the input. */
+    .ita-filterwrap{ flex:1 1 120px !important; min-width:0 !important; }
+    .ita-controls-right > button{ flex:0 0 auto !important; }
 
-    .ita-legend{ display:flex !important; width:100%; flex-wrap:wrap; gap:6px !important; }
-    .ita-legend > span:first-child{ font-size:9.5px !important; letter-spacing:.4px !important; white-space:normal !important; }
+    /* The legend's two captions carry the whole meaning of its pip and swatch marks, and
+       the pair costs ~90px directly above the table. Hidden wholesale rather than
+       caption-only, which would strand the marks with nothing to explain them. */
+    .ita-legend{ display:none !important; }
 
     .ita-tablescroll{ -webkit-overflow-scrolling:touch;
       -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent);
@@ -197,7 +205,7 @@
           <span style="{{ st.legSwatch }}"></span>
           <span style="{{ st.legNote }}">Accent = top/bottom quartile by rank percentile (LOEUF &lt;P25 · Mis. Z &gt;P75 · GWAS &gt;P75)</span>
         </div>
-        <div style="{{ st.filterWrap }}">
+        <div class="ita-filterwrap" style="{{ st.filterWrap }}">
           <input class="ita-filter" style="{{ st.filterInput }}" value="{{ filter }}" onInput="{{ onFilter }}" placeholder="Filter table by gene" spellcheck="false" />
         </div>
         <button style="{{ st.btnAll }}" onClick="{{ toggleAll }}">{{ toggleLabel }}</button>
