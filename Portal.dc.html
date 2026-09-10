@@ -949,9 +949,11 @@ class Component extends DCLogic {
     else pool=data.slice().sort((a,b)=>b.pu_score-a.pu_score).slice(0, topCount);
     pool=this.applySort(pool, sortKey, sortDir);
 
-    // pagination (only in browse-all, unfiltered)
+    // pagination -- browse-all, and any filter matching more than one page. Without the
+    // filtered case a single broad letter renders every match at once: "A" is 6,683 rows
+    // and ~150k DOM nodes, which blocked the main thread for ~2.7s per keystroke.
     const pageSize=50;
-    const paged = (viewAll && !q);
+    const paged = q ? pool.length > pageSize : viewAll;
     const pageCount = paged ? Math.max(1, Math.ceil(pool.length/pageSize)) : 1;
     const curPage = Math.min(page, pageCount-1);
     const pageRows = paged ? pool.slice(curPage*pageSize, (curPage+1)*pageSize) : pool;
@@ -959,7 +961,11 @@ class Component extends DCLogic {
 
     // labels
     let resultLabel, totalNote;
-    if (q){ resultLabel = pool.length+' match'+(pool.length===1?'':'es'); totalNote='for “'+filter.trim()+'”'; }
+    if (q){
+      const a=curPage*pageSize+1, b=Math.min((curPage+1)*pageSize, pool.length);
+      resultLabel = paged ? 'Showing '+a+'–'+b : pool.length+' match'+(pool.length===1?'':'es');
+      totalNote = (paged ? 'of '+pool.length.toLocaleString()+' matches for “' : 'for “')+filter.trim()+'”';
+    }
     else if (viewAll){ const a=curPage*pageSize+1, b=Math.min((curPage+1)*pageSize, pool.length); resultLabel='Showing '+a+'–'+b; totalNote='of '+total.toLocaleString()+' scored genes'; }
     else { resultLabel='Top '+topCount+' candidate targets'; totalNote='ranked by PU model score · '+total.toLocaleString()+' genes scored'; }
 
