@@ -79,10 +79,10 @@
        hence !important. */
     .ita-topbar{ padding:0 !important; padding-top:env(safe-area-inset-top) !important; padding-bottom:14px !important; padding-left:max(20px, env(safe-area-inset-left)) !important; padding-right:max(20px, env(safe-area-inset-right)) !important; row-gap:16px !important; }
     .ita-controls{ padding:10px 16px !important; padding-left:max(16px, env(safe-area-inset-left)) !important; padding-right:max(16px, env(safe-area-inset-right)) !important; }
-    /* The results-bar labels track the header tagline on desktop; mobile keeps the
-       compact metadata sizes. !important because styles(t) sets them inline. */
+    /* The results-bar labels track the header tagline on desktop; on mobile both lines
+       share one compact size. !important because styles(t) sets them inline. */
     .ita-resultlabel{ font-size:12.5px !important; }
-    .ita-totalnote{ font-size:11px !important; }
+    .ita-totalnote{ font-size:12.5px !important; }
     .ita-footer{ padding:14px 16px !important; padding-bottom:max(14px, env(safe-area-inset-bottom)) !important; }
     .ita-pager{ padding-bottom:max(14px, env(safe-area-inset-bottom)) !important; }
     .ita-dtop{ padding:10px 16px !important; padding-top:max(10px, env(safe-area-inset-top)) !important; }
@@ -136,6 +136,13 @@
   @media (max-width: 480px),
          (max-height: 430px) and (orientation: landscape){
     :root{ --atlas-sub:#A3A7AE; --atlas-faint:#8D9198; --atlas-line:rgba(255,255,255,0.14); }
+  }
+  /* At 320px the total note measures 288.1px against a 288px content box (the
+     controls bar's 16px side padding) — 0.1px short of one line. Only 320pt
+     devices are affected, so they alone keep the old 11px. Placed last so
+     source order beats the phone block's !important. */
+  @media (max-width: 320px){
+    .ita-totalnote{ font-size:11px !important; }
   }
 </style>
 </helmet>
