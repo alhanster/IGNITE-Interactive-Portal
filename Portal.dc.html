@@ -41,8 +41,6 @@
     --atlas-radius:0px;
     --atlas-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     --atlas-ui:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
-    --atlas-leg-neg:#5B8FD6;
-    --atlas-leg-pos:#E3B23C;
   }
   body{background:var(--atlas-bg);}
   table,input,button,th,td{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
@@ -537,9 +535,7 @@ class Component extends DCLogic {
         line:'#26302f', line2:'#1b2322', accent:'#37d39f', accent2:'#5ab4e6', head:'#0f1515', hover:'#18211f',
         chip:'#16231e', chipInk:'#7fe6bf', mono:MONO, ui:UI,
         rad:'7px', radSm:'4px', headBg:'#141a1b', tableBg:'#141a1b', rowBg:'#141a1b', track:'#1f2b26',
-        blur:'none', shadow:'0 14px 40px rgba(0,0,0,.5)', scale:false,
-        legNegC:'#5ab4e6', legPosC:'#c94a4a',
-        legGrad:'linear-gradient(90deg,rgb(74,132,196),#23291c,rgb(198,88,82))' };
+        blur:'none', shadow:'0 14px 40px rgba(0,0,0,.5)', scale:false };
     }
     if (this.props.theme === 'atlas'){
       return { dark:true, atlas:true, bg:'var(--atlas-bg)', surface:'var(--atlas-surface)', panel:'var(--atlas-surface)',
@@ -549,18 +545,14 @@ class Component extends DCLogic {
         chip:'var(--atlas-chip)', chipInk:'var(--atlas-chip-ink)', mono:'var(--atlas-mono)', ui:'var(--atlas-ui)',
         rad:'var(--atlas-radius)', radSm:'var(--atlas-radius)', headBg:'var(--atlas-head-bg)',
         tableBg:'transparent', rowBg:'transparent', track:'var(--atlas-track)',
-        blur:'var(--atlas-blur)', shadow:'none', scale:true,
-        legNegC:'var(--atlas-leg-neg)', legPosC:'var(--atlas-leg-pos)',
-        legGrad:'linear-gradient(90deg,rgb(64,100,150),rgba(255,255,255,.10),rgb(125,98,33))' };
+        blur:'var(--atlas-blur)', shadow:'none', scale:true };
     }
     return { dark:false, bg:'#eef1ee', surface:'#ffffff', panel:'#ffffff', ink:'#171b19', sub:'#5c645f', faint:'#9aa29c',
       line:'#e2e6e2', line2:'#eef1ee', accent:'#0e7a52', accent2:'#0b6bb0', head:'#f6f8f6', hover:'#f2f7f4',
       chip:'#e8f3ed', chipInk:'#0e6b48', mono:MONO,
       ui:UI,
       rad:'7px', radSm:'4px', headBg:'rgba(86,180,233,0.16)', tableBg:'#ffffff', rowBg:'#ffffff', track:'#e6efe9',
-      blur:'none', shadow:'0 14px 40px rgba(0,0,0,.12)', scale:false,
-      legNegC:'#0b6bb0', legPosC:'#c94a4a',
-      legGrad:'linear-gradient(90deg,rgb(58,110,176),#f4f6f4,rgb(198,74,74))' };
+      blur:'none', shadow:'0 14px 40px rgba(0,0,0,.12)', scale:false };
   }
   viridis(x){
     x=Math.max(0,Math.min(1,isNaN(x)?0:x));
@@ -838,9 +830,6 @@ class Component extends DCLogic {
       controlsRight:{ display:'flex', alignItems:'center', gap:'12px', flexWrap:'wrap' },
       legend:{ display:'flex', alignItems:'center', gap:'6px' },
       legLabel:{ fontFamily:t.mono, fontSize:'10px', letterSpacing:'.6px', color:t.sub, marginRight:'2px' },
-      legNeg:{ fontFamily:t.ui, fontSize:'11px', color:t.legNegC },
-      legPos:{ fontFamily:t.ui, fontSize:'11px', color:t.legPosC },
-      legBar:{ width:'70px', height:'6px', borderRadius:t.radSm, background:t.legGrad },
       legDivider:{ width:'1px', height:'12px', background:t.line, margin:'0 4px' },
       legSwatch:{ display:'inline-block', width:'8px', height:'8px', border:'1px solid '+t.accent, background:'transparent' },
       legNote:{ fontFamily:t.mono, fontSize:'10px', letterSpacing:'.4px', color:t.sub },
